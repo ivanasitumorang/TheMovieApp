@@ -19,23 +19,23 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieAdapter(
     list: List<Movie>,
     clickListener: (Movie) -> Unit
-) : GeneralMovieAdapter<Movie, MovieViewHolder>(list, clickListener) {
+) : GeneralMovieAdapter<Movie, MovieAdapter.MovieViewHolder>(list, clickListener) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<Movie> {
         return MovieViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         )
     }
-}
 
-class MovieViewHolder(itemView: View) : GeneralMovieAdapter.ViewHolder<Movie>(itemView) {
-    override fun bind(data: Movie, clickListener: (Movie) -> Unit) {
-        itemView.apply {
-            val posterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${data.posterPath}"
-            Picasso.get().load(posterPath)
-                .into(ivMovie)
-            tvMovieTitle.text = data.title
-            itemMovie.setOnClickListener { clickListener.invoke(data) }
+    inner class MovieViewHolder(itemView: View) : GeneralMovieAdapter.ViewHolder<Movie>(itemView) {
+        override fun bind(data: Movie, clickListener: (Movie) -> Unit) {
+            itemView.apply {
+                val posterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${data.posterPath}"
+                Picasso.get().load(posterPath)
+                    .into(ivMovie)
+                tvMovieTitle.text = data.title
+                itemMovie.setOnClickListener { clickListener.invoke(data) }
+            }
         }
     }
 }
