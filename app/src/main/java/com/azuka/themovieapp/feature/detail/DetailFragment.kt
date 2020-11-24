@@ -1,6 +1,8 @@
-package com.azuka.themovieapp
+package com.azuka.themovieapp.feature.detail
 
 import android.os.Bundle
+import com.azuka.themovieapp.BaseFragment
+import com.azuka.themovieapp.R
 
 
 /**

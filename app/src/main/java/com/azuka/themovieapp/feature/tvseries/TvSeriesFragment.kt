@@ -1,6 +1,8 @@
-package com.azuka.themovieapp
+package com.azuka.themovieapp.feature.tvseries
 
 import android.os.Bundle
+import com.azuka.themovieapp.BaseFragment
+import com.azuka.themovieapp.R
 
 
 /**
@@ -12,7 +14,7 @@ class TvSeriesFragment : BaseFragment() {
     override val viewLayout: Int = R.layout.fragment_tv_series
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
-        TODO("Not yet implemented")
+
     }
 
 }
