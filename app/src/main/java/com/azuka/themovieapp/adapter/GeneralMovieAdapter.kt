@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * Android Engineer
  */
 
-abstract class GeneralMovieAdapter<T>(
+abstract class GeneralMovieAdapter<T, VH : GeneralMovieAdapter.ViewHolder<T>>(
     private val list: List<T>,
     private val clickListener: (T) -> Unit
 ) : RecyclerView.Adapter<GeneralMovieAdapter.ViewHolder<T>>() {
