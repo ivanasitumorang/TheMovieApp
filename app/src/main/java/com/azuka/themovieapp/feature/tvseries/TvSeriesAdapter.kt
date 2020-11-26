@@ -35,6 +35,9 @@ class TvSeriesAdapter(
                 Picasso.get().load(posterPath)
                     .into(ivMovie)
                 tvMovieTitle.text = data.name
+                tvItemLanguage.text = data.originalLanguage
+                ratingBar.rating = (data.voteAverage / 2).toFloat()
+                tvItemRating.text = "(${data.voteAverage} of 10)"
                 itemMovie.setOnClickListener { clickListener.invoke(data) }
             }
         }
