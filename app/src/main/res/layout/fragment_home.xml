@@ -18,12 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:measureAllChildren="true"
-            app:tabBackground="@color/purple_500"
+            app:tabBackground="@color/blue_50"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/black"
+            app:tabIndicatorColor="@null"
             app:tabIndicatorHeight="4dp"
             app:tabMode="fixed"
-            app:tabTextColor="@color/white" />
+            app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/purple_500" />
 
     </androidx.viewpager.widget.ViewPager>
 </androidx.constraintlayout.widget.ConstraintLayout>
