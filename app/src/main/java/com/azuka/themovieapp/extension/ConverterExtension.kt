@@ -11,6 +11,11 @@ import com.google.gson.reflect.TypeToken
 
 val gson = Gson()
 
+//convert a map to a data class
+inline fun <reified DC> Map<String, Any>.toDataClass(): DC {
+    return convert()
+}
+
 //convert an object of type I to type O
 inline fun <I, reified O> I.convert(): O {
     val json = gson.toJson(this)

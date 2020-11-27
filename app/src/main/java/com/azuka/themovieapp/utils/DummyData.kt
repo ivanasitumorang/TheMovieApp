@@ -1,6 +1,5 @@
 package com.azuka.themovieapp.utils
 
-import android.content.Context
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.Movie
 import com.azuka.themovieapp.data.TvSeries
@@ -14,11 +13,11 @@ import com.azuka.themovieapp.extension.convert
 
 object DummyData {
 
-    fun getDummyMovies(context: Context): BaseResponse<Movie> =
-        Utils.getJsonFromAssets(context, MovieType).convert()
+    fun getDummyMovies(): BaseResponse<Movie> =
+        Utils.getJsonFromAssets(MovieType).convert()
 
-    fun getDummyTvSeries(context: Context): BaseResponse<TvSeries> =
-        Utils.getJsonFromAssets(context, TvSeriesType).convert()
+    fun getDummyTvSeries(): BaseResponse<TvSeries> =
+        Utils.getJsonFromAssets(TvSeriesType).convert()
 }
 
 sealed class DataType

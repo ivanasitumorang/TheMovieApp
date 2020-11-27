@@ -1,8 +1,6 @@
 package com.azuka.themovieapp.utils
 
-import android.content.Context
 import android.util.Log
-import com.azuka.themovieapp.R
 import com.azuka.themovieapp.extension.convertStringToMap
 import java.io.*
 
@@ -12,41 +10,43 @@ import java.io.*
  * Android Engineer
  */
 
-class Utils {
-    companion object {
-        fun getJsonFromAssets(context: Context, dataType: DataType): Map<String, Any>? {
-            return try {
-                val resources = context.resources
-                when (dataType) {
-                    MovieType -> {
-                        convertJsonFileToString(
-                            resources.openRawResource(R.raw.movie_data)
-                        ).convertStringToMap()
-                    }
-                    TvSeriesType -> {
-                        convertJsonFileToString(
-                            resources.openRawResource(R.raw.tv_series_data)
-                        ).convertStringToMap()
-                    }
+object Utils {
+
+    fun getJsonFromAssets(dataType: DataType): Map<String, Any>? {
+        return try {
+            when (dataType) {
+                MovieType -> {
+                    val inputStream =
+                        javaClass.classLoader?.getResourceAsStream("movie_data.json")
+                    convertJsonFileToString(
+                        inputStream
+                    ).convertStringToMap()
                 }
-            } catch (e: IOException) {
-                Log.i("Assets", "error : ${e.message}")
-                null
+                TvSeriesType -> {
+                    val inputStream =
+                        javaClass.classLoader?.getResourceAsStream("tv_series_data.json")
+                    convertJsonFileToString(
+                        inputStream
+                    ).convertStringToMap()
+                }
+            }
+        } catch (e: IOException) {
+            Log.i("Assets", "error : ${e.message}")
+            null
+        }
+    }
+
+    private fun convertJsonFileToString(inputStream: InputStream?): String {
+        val writer = StringWriter()
+        val buffer = CharArray(1024)
+        inputStream.use { stream ->
+            val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
+            var n: Int
+            while (reader.read(buffer).also { n = it } != -1) {
+                writer.write(buffer, 0, n)
             }
         }
 
-        private fun convertJsonFileToString(inputStream: InputStream): String {
-            val writer = StringWriter()
-            val buffer = CharArray(1024)
-            inputStream.use { stream ->
-                val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
-                var n: Int
-                while (reader.read(buffer).also { n = it } != -1) {
-                    writer.write(buffer, 0, n)
-                }
-            }
-
-            return writer.toString()
-        }
+        return writer.toString()
     }
 }

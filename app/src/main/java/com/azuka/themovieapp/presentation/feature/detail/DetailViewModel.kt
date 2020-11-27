@@ -1,7 +1,6 @@
 package com.azuka.themovieapp.presentation.feature.detail
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.azuka.themovieapp.data.Movie
 import com.azuka.themovieapp.data.TvSeries
 import com.azuka.themovieapp.utils.DummyData
@@ -12,7 +11,7 @@ import com.azuka.themovieapp.utils.DummyData
  * Android Engineer
  */
 
-class DetailViewModel(private val app: Application) : AndroidViewModel(app) {
+class DetailViewModel : ViewModel() {
     fun getTvSeriesById(tvSeriesId: Long): TvSeries? {
         return getTvSeriesDummy().find { tvSeries ->
             tvSeries.id == tvSeriesId
@@ -26,10 +25,10 @@ class DetailViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     private fun getMoviesDummy(): List<Movie> {
-        return DummyData.getDummyMovies(app.applicationContext).results
+        return DummyData.getDummyMovies().results
     }
 
     private fun getTvSeriesDummy(): List<TvSeries> {
-        return DummyData.getDummyTvSeries(app.applicationContext).results
+        return DummyData.getDummyTvSeries().results
     }
 }
