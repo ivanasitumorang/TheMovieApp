@@ -20,8 +20,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupUI() {
-        activity?.actionBar?.title = "Home"
-
         setupTab()
     }
 
