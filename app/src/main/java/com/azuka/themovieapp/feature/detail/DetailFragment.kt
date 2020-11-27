@@ -2,7 +2,6 @@ package com.azuka.themovieapp.feature.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -61,7 +60,6 @@ class DetailFragment : BaseFragment() {
 
     private fun setupContentMovie(movie: Movie?) {
         movie?.let {
-            showToast(movie.title)
             val moviePosterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${movie.posterPath}"
             Picasso.get().load(moviePosterPath).into(ivDetailImage)
             tvDetailTitle.text = movie.title
@@ -77,11 +75,15 @@ class DetailFragment : BaseFragment() {
 
     private fun setupContentTvSeries(tvSeries: TvSeries?) {
         tvSeries?.let {
-            showToast(tvSeries.name)
+            val seriesPosterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${tvSeries.posterPath}"
+            Picasso.get().load(seriesPosterPath).into(ivDetailImage)
+            tvDetailTitle.text = tvSeries.name
+            rbDetail.rating = (tvSeries.voteAverage / 2).toFloat()
+            tvDetailRating.text = ("(${tvSeries.voteAverage} of 10)")
+            tvDetailReleaseDate.text = tvSeries.firstAirDate
+            tvDetailLanguage.text = tvSeries.originalLanguage
+            tvDetailVoteCount.text = tvSeries.voteCount.toString()
+            tvDetailOverview.text = tvSeries.overview
         }
-    }
-
-    private fun showToast(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 }
