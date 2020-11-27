@@ -1,11 +1,11 @@
-package com.azuka.themovieapp.feature.movie
+package com.azuka.themovieapp.presentation.feature.movie
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
-import com.azuka.themovieapp.feature.HomeFragmentDirections
+import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.utils.Constants
 import kotlinx.android.synthetic.main.fragment_movie.*
 

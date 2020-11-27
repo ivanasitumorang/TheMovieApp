@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.feature
+package com.azuka.themovieapp.presentation.feature
 
 import android.os.Bundle
 import com.azuka.themovieapp.BaseFragment

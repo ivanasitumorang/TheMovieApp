@@ -3,8 +3,8 @@ package com.azuka.themovieapp.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.azuka.themovieapp.feature.movie.MovieFragment
-import com.azuka.themovieapp.feature.tvseries.TvSeriesFragment
+import com.azuka.themovieapp.presentation.feature.movie.MovieFragment
+import com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment
 
 
 /**

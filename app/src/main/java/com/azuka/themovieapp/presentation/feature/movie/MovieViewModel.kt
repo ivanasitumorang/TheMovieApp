@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.feature.movie
+package com.azuka.themovieapp.presentation.feature.movie
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -6,14 +6,14 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.azuka.themovieapp.feature.HomeFragment">
+        android:name="com.azuka.themovieapp.presentation.feature.HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.azuka.themovieapp.feature.detail.DetailFragment">
+        android:name="com.azuka.themovieapp.presentation.feature.detail.DetailFragment">
         <argument
             android:name="movieId"
             app:argType="long" />
@@ -23,8 +23,8 @@
     </fragment>
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.azuka.themovieapp.feature.movie.MovieFragment" />
+        android:name="com.azuka.themovieapp.presentation.feature.movie.MovieFragment" />
     <fragment
         android:id="@+id/tvSeriesFragment"
-        android:name="com.azuka.themovieapp.feature.tvseries.TvSeriesFragment" />
+        android:name="com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment" />
 </navigation>

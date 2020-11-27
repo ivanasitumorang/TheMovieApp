@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.feature.tvseries
+package com.azuka.themovieapp.presentation.feature.tvseries
 
 import android.view.LayoutInflater
 import android.view.View

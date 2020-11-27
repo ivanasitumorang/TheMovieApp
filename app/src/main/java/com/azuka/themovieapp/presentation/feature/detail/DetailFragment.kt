@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.feature.detail
+package com.azuka.themovieapp.presentation.feature.detail
 
 import android.os.Bundle
 import android.view.View
