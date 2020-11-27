@@ -9,7 +9,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        app:elevation="0dp">
+        app:elevation="@dimen/dimen_0">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
@@ -52,13 +52,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailTitle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:layout_marginEnd="@dimen/dimen_16"
                 android:textColor="@color/gray_900"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_20"
                 app:fontFamily="@font/roboto_bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,10 +78,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailRating"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/dimen_4"
+                android:layout_marginTop="@dimen/dimen_4"
                 android:textColor="@color/gray_700"
                 app:fontFamily="@font/roboto_light"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,14 +91,14 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/labelDetailReleaseDate"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_24"
                 android:text="@string/detail_label_release_date"
                 android:textAlignment="center"
                 android:textColor="@color/gray_500"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_12"
                 app:fontFamily="@font/roboto_regular"
                 app:layout_constraintEnd_toStartOf="@+id/labelDetailLanguage"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -107,12 +107,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/labelDetailLanguage"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_label_language"
                 android:textAlignment="center"
                 android:textColor="@color/gray_500"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_12"
                 app:fontFamily="@font/roboto_regular"
                 app:layout_constraintBaseline_toBaselineOf="@+id/labelDetailReleaseDate"
                 app:layout_constraintEnd_toStartOf="@+id/labelDetailVoteCount"
@@ -121,13 +121,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/labelDetailVoteCount"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/dimen_16"
                 android:text="@string/detail_label_votes"
                 android:textAlignment="center"
                 android:textColor="@color/gray_500"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_12"
                 app:fontFamily="@font/roboto_regular"
                 app:layout_constraintBaseline_toBaselineOf="@+id/labelDetailLanguage"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -136,9 +136,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailReleaseDate"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4"
                 android:textAlignment="center"
                 android:textColor="@color/gray_700"
                 app:fontFamily="@font/roboto_medium"
@@ -149,9 +149,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailLanguage"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4"
                 android:textAlignment="center"
                 android:textColor="@color/gray_700"
                 app:fontFamily="@font/roboto_medium"
@@ -162,9 +162,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailVoteCount"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4"
                 android:textAlignment="center"
                 android:textColor="@color/gray_700"
                 app:fontFamily="@font/roboto_medium"
@@ -175,10 +175,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/labelDetailOverview"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_24"
                 android:text="@string/detail_label_overview"
                 android:textAlignment="center"
                 android:textColor="@color/gray_700"
@@ -188,13 +188,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDetailOverview"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/dimen_4"
                 android:justificationMode="inter_word"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
+                android:paddingStart="@dimen/dimen_16"
+                android:paddingEnd="@dimen/dimen_16"
+                android:paddingBottom="@dimen/dimen_16"
                 android:textColor="@color/gray_700"
                 app:fontFamily="@font/roboto_regular"
                 app:layout_constraintBottom_toBottomOf="parent"

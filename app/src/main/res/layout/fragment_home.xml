@@ -46,7 +46,6 @@
                 app:tabBackground="@color/blue_50"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@null"
-                app:tabIndicatorHeight="4dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/purple_500"
                 app:tabTextColor="@color/white" />

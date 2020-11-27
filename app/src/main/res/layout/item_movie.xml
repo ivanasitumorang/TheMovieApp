@@ -5,10 +5,10 @@
     android:id="@+id/itemMovie"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="8dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="16dp">
+    android:paddingStart="@dimen/dimen_8"
+    android:paddingTop="@dimen/dimen_8"
+    android:paddingEnd="@dimen/dimen_8"
+    android:paddingBottom="@dimen/dimen_16">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivMovie"
@@ -22,10 +22,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvMovieTitle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:textColor="@color/gray_700"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_16"
         app:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/ivMovie"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +47,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvItemRating"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_4"
         android:textColor="@color/gray_700"
         app:fontFamily="@font/roboto_light"
         app:layout_constraintEnd_toEndOf="@+id/ivMovie"
@@ -63,10 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/pink_50"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
+        android:paddingStart="@dimen/dimen_16"
+        android:paddingTop="@dimen/dimen_8"
+        android:paddingEnd="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_8"
         android:textColor="@color/purple_500"
         app:fontFamily="@font/roboto_medium"
         app:layout_constraintStart_toStartOf="@+id/ivMovie"
