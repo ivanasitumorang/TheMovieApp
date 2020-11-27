@@ -7,6 +7,8 @@ import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.utils.Constants
+import com.azuka.themovieapp.utils.DummyData
+import com.azuka.themovieapp.utils.MovieViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tv_series.*
 
 
@@ -17,7 +19,9 @@ import kotlinx.android.synthetic.main.fragment_tv_series.*
 
 class TvSeriesFragment : BaseFragment() {
 
-    private val viewModel: TvSeriesViewModel by viewModels()
+    private val viewModel: TvSeriesViewModel by viewModels(factoryProducer = {
+        MovieViewModelFactory(DummyData)
+    })
 
     override val viewLayout: Int = R.layout.fragment_tv_series
 
