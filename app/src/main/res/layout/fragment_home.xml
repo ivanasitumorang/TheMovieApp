@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="The Movie App"
+                    android:text="@string/app_name"
                     android:textColor="@color/purple_700" />
 
             </androidx.appcompat.widget.Toolbar>
