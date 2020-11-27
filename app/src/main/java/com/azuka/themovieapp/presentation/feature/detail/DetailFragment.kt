@@ -12,6 +12,8 @@ import com.azuka.themovieapp.R
 import com.azuka.themovieapp.data.Movie
 import com.azuka.themovieapp.data.TvSeries
 import com.azuka.themovieapp.utils.Constants
+import com.azuka.themovieapp.utils.DummyData
+import com.azuka.themovieapp.utils.MovieViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
 
@@ -26,7 +28,9 @@ class DetailFragment : BaseFragment() {
     private var dataType: String? = null
     private var movieId: Long? = null
 
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels(factoryProducer = {
+        MovieViewModelFactory(DummyData)
+    })
 
     override val viewLayout: Int = R.layout.fragment_detail
 

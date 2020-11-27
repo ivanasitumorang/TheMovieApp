@@ -3,7 +3,7 @@ package com.azuka.themovieapp.presentation.feature.detail
 import androidx.lifecycle.ViewModel
 import com.azuka.themovieapp.data.Movie
 import com.azuka.themovieapp.data.TvSeries
-import com.azuka.themovieapp.utils.DummyData
+import com.azuka.themovieapp.utils.Dummy
 
 
 /**
@@ -11,7 +11,7 @@ import com.azuka.themovieapp.utils.DummyData
  * Android Engineer
  */
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val dummy: Dummy) : ViewModel() {
     fun getTvSeriesById(tvSeriesId: Long): TvSeries? {
         return getTvSeriesDummy().find { tvSeries ->
             tvSeries.id == tvSeriesId
@@ -25,10 +25,10 @@ class DetailViewModel : ViewModel() {
     }
 
     private fun getMoviesDummy(): List<Movie> {
-        return DummyData.getDummyMovies().results
+        return dummy.getDummyMovies().results
     }
 
     private fun getTvSeriesDummy(): List<TvSeries> {
-        return DummyData.getDummyTvSeries().results
+        return dummy.getDummyTvSeries().results
     }
 }
