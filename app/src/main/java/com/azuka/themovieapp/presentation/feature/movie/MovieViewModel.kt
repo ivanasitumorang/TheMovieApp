@@ -2,7 +2,7 @@ package com.azuka.themovieapp.presentation.feature.movie
 
 import androidx.lifecycle.ViewModel
 import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.utils.DummyData
+import com.azuka.themovieapp.utils.Dummy
 
 
 /**
@@ -10,9 +10,9 @@ import com.azuka.themovieapp.utils.DummyData
  * Android Engineer
  */
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(private val dummy: Dummy) : ViewModel() {
 
     fun getMoviesDummy(): List<Movie> {
-        return DummyData.getDummyMovies().results
+        return dummy.getDummyMovies().results
     }
 }

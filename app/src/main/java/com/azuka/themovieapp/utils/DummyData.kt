@@ -11,12 +11,17 @@ import com.azuka.themovieapp.extension.convert
  * Android Engineer
  */
 
-object DummyData {
+interface Dummy {
+    fun getDummyMovies(): BaseResponse<Movie>
+    fun getDummyTvSeries(): BaseResponse<TvSeries>
+}
 
-    fun getDummyMovies(): BaseResponse<Movie> =
+object DummyData : Dummy {
+
+    override fun getDummyMovies(): BaseResponse<Movie> =
         Utils.getJsonFromAssets(MovieType).convert()
 
-    fun getDummyTvSeries(): BaseResponse<TvSeries> =
+    override fun getDummyTvSeries(): BaseResponse<TvSeries> =
         Utils.getJsonFromAssets(TvSeriesType).convert()
 }
 

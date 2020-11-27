@@ -15,6 +15,8 @@ import java.io.StringWriter
  */
 
 object TestUtils {
+    fun getEmptyMovieData() = emptyList<Movie>()
+
     fun getMovieData(size: Int = 1): List<Movie> = (0 until size).map {
         Movie(
             id = 1000,
