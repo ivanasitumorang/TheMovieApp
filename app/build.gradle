@@ -80,4 +80,5 @@ dependencies {
 
     // Picasso
     implementation "com.squareup.picasso:picasso:2.71828"
+    compileOnly 'com.google.android.wearable:wearable:2.6.0'
 }

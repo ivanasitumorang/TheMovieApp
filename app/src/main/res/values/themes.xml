@@ -17,4 +17,8 @@
     <style name="Theme.TheMovieApp.Toolbar" parent="Theme.TheMovieApp">
         <item name="colorControlNormal">@color/purple_700</item>
     </style>
+
+    <style name="Theme.TheMovieApp.SplashScreen" parent="Theme.TheMovieApp">
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
 </resources>
