@@ -37,7 +37,7 @@ class TvSeriesAdapter(
                 tvMovieTitle.text = data.name
                 tvItemLanguage.text = data.originalLanguage
                 ratingBar.rating = (data.voteAverage / 2).toFloat()
-                tvItemRating.text = "(${data.voteAverage} of 10)"
+                tvItemRating.text = context.getString(R.string.item_votes, data.voteAverage)
                 itemMovie.setOnClickListener { clickListener.invoke(data) }
             }
         }

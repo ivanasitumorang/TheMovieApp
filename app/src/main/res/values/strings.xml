@@ -4,4 +4,6 @@
     <string name="detail_label_language">Language</string>
     <string name="detail_label_votes">Votes</string>
     <string name="detail_label_overview">Overview</string>
+
+    <string name="item_votes">(%.1f of 10)</string>
 </resources>

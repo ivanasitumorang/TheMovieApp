@@ -64,7 +64,7 @@ class DetailFragment : BaseFragment() {
             Picasso.get().load(moviePosterPath).into(ivDetailImage)
             tvDetailTitle.text = movie.title
             rbDetail.rating = (movie.voteAverage / 2).toFloat()
-            tvDetailRating.text = ("(${movie.voteAverage} of 10)")
+            tvDetailRating.text = getString(R.string.item_votes, movie.voteAverage)
             tvDetailReleaseDate.text = movie.releaseDate
             tvDetailLanguage.text = movie.originalLanguage
             tvDetailVoteCount.text = movie.voteCount.toString()
@@ -79,7 +79,7 @@ class DetailFragment : BaseFragment() {
             Picasso.get().load(seriesPosterPath).into(ivDetailImage)
             tvDetailTitle.text = tvSeries.name
             rbDetail.rating = (tvSeries.voteAverage / 2).toFloat()
-            tvDetailRating.text = ("(${tvSeries.voteAverage} of 10)")
+            tvDetailRating.text = getString(R.string.item_votes, tvSeries.voteAverage)
             tvDetailReleaseDate.text = tvSeries.firstAirDate
             tvDetailLanguage.text = tvSeries.originalLanguage
             tvDetailVoteCount.text = tvSeries.voteCount.toString()
