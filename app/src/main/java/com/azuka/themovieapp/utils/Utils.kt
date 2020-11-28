@@ -10,13 +10,10 @@ import java.io.*
  * Android Engineer
  */
 
-interface IUtils {
-    fun getJsonFromAssets(dataType: DataType): Map<String, Any>?
-}
 
-object Utils : IUtils {
+object Utils {
 
-    override fun getJsonFromAssets(dataType: DataType): Map<String, Any>? {
+    fun getJsonFromAssets(dataType: DataType): Map<String, Any>? {
         return try {
             when (dataType) {
                 MovieType -> {
