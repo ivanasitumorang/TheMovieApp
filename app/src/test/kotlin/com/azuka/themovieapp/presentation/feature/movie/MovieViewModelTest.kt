@@ -6,7 +6,6 @@ import com.azuka.themovieapp.presentation.feature.movie.utils.TestUtils
 import com.azuka.themovieapp.presentation.feature.movie.utils.mock
 import com.azuka.themovieapp.utils.Dummy
 import org.junit.Assert.assertEquals
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doReturn
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
@@ -27,13 +26,12 @@ object MovieViewModelTest : Spek({
             lateinit var result: List<Movie>
 
             Given("the list of movies should be returned") {
-                doReturn(BaseResponse<Movie>())
+                doReturn(BaseResponse(results = movieList))
                     .`when`(dummy)
                     .getDummyMovies()
             }
 
             When("trigger get all movie data") {
-                `when`(dummy.getDummyMovies()).thenReturn(BaseResponse(results = movieList))
                 result = viewModel.getMoviesDummy()
             }
 
