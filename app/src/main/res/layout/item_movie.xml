@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemMovie"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dimen_8"
+    android:paddingTop="@dimen/dimen_8"
+    android:paddingEnd="@dimen/dimen_8"
+    android:paddingBottom="@dimen/dimen_16">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_movie" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieTitle"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_700"
+        android:textSize="@dimen/text_16"
+        app:fontFamily="@font/roboto_medium"
+        app:layout_constraintEnd_toEndOf="@+id/ivMovie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivMovie"
+        tools:text="Movie or Tv Series title" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:progressBackgroundTint="@color/purple_200"
+        android:progressTint="@color/purple_500"
+        android:rating="4.6"
+        app:layout_constraintBottom_toBottomOf="@+id/tvItemRating"
+        app:layout_constraintStart_toStartOf="@+id/ivMovie"
+        app:layout_constraintTop_toTopOf="@+id/tvItemRating" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemRating"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:textColor="@color/gray_700"
+        app:fontFamily="@font/roboto_light"
+        app:layout_constraintEnd_toEndOf="@+id/ivMovie"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle"
+        tools:text="(9.3 of 10)" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_50"
+        android:paddingStart="@dimen/dimen_16"
+        android:paddingTop="@dimen/dimen_8"
+        android:paddingEnd="@dimen/dimen_16"
+        android:paddingBottom="@dimen/dimen_8"
+        android:textColor="@color/purple_500"
+        app:fontFamily="@font/roboto_medium"
+        app:layout_constraintStart_toStartOf="@+id/ivMovie"
+        app:layout_constraintTop_toTopOf="@+id/ivMovie"
+        app:textAllCaps="true"
+        tools:text="EN" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

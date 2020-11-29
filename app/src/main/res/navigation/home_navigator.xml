@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_navigator"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.azuka.themovieapp.presentation.feature.HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.azuka.themovieapp.presentation.feature.detail.DetailFragment">
+        <argument
+            android:name="movieId"
+            app:argType="long" />
+        <argument
+            android:name="dataType"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.azuka.themovieapp.presentation.feature.movie.MovieFragment" />
+    <fragment
+        android:id="@+id/tvSeriesFragment"
+        android:name="com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment" />
+</navigation>
