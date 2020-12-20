@@ -1,9 +1,10 @@
 package com.azuka.themovieapp.presentation.feature.detail
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
-import com.azuka.themovieapp.utils.Dummy
+import com.azuka.themovieapp.data.source.Repository
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 
 
 /**
@@ -11,24 +12,21 @@ import com.azuka.themovieapp.utils.Dummy
  * Android Engineer
  */
 
-class DetailViewModel(private val dummy: Dummy) : ViewModel() {
+class DetailViewModel @ViewModelInject constructor(private val repository: Repository) :
+    ViewModel() {
+
+    private val movieList = repository.getMovies()
+    private val tvSeriesList = repository.getTvSeries()
+
     fun getTvSeriesById(tvSeriesId: Long): TvSeries? {
-        return getTvSeriesDummy().find { tvSeries ->
+        return tvSeriesList.find { tvSeries ->
             tvSeries.id == tvSeriesId
         }
     }
 
     fun getMovieById(movieId: Long): Movie? {
-        return getMoviesDummy().find { movie ->
+        return movieList.find { movie ->
             movie.id == movieId
         }
-    }
-
-    private fun getMoviesDummy(): List<Movie> {
-        return dummy.getDummyMovies().results
-    }
-
-    private fun getTvSeriesDummy(): List<TvSeries> {
-        return dummy.getDummyTvSeries().results
     }
 }

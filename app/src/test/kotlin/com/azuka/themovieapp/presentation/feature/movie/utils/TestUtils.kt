@@ -1,10 +1,10 @@
 package com.azuka.themovieapp.presentation.feature.movie.utils
 
 import com.azuka.themovieapp.data.BaseResponse
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
 import com.azuka.themovieapp.extension.convertStringToMap
 import com.azuka.themovieapp.extension.toDataClass
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.StringWriter

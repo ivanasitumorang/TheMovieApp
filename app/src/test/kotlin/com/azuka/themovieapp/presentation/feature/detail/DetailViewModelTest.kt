@@ -1,8 +1,8 @@
 package com.azuka.themovieapp.presentation.feature.detail
 
 import com.azuka.themovieapp.data.BaseResponse
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.movie.utils.TestUtils
 import com.azuka.themovieapp.presentation.feature.movie.utils.mock
 import com.azuka.themovieapp.utils.Dummy

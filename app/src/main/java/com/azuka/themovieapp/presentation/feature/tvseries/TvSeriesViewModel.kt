@@ -1,8 +1,9 @@
 package com.azuka.themovieapp.presentation.feature.tvseries
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.azuka.themovieapp.data.TvSeries
-import com.azuka.themovieapp.utils.Dummy
+import com.azuka.themovieapp.data.source.Repository
+import com.azuka.themovieapp.presentation.entity.TvSeries
 
 
 /**
@@ -10,9 +11,8 @@ import com.azuka.themovieapp.utils.Dummy
  * Android Engineer
  */
 
-class TvSeriesViewModel(private val dummy: Dummy) : ViewModel() {
+class TvSeriesViewModel @ViewModelInject constructor(private val repository: Repository) :
+    ViewModel() {
 
-    fun getTvSeriesDummy(): List<TvSeries> {
-        return dummy.getDummyTvSeries().results
-    }
+    fun getTvSeriesDummy(): List<TvSeries> = repository.getTvSeries()
 }

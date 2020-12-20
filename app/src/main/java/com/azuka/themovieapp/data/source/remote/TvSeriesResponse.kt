@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.data
+package com.azuka.themovieapp.data.source.remote
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName
  * Created by ivanaazuka on 24/11/20.
  * Android Engineer
  */
- 
-data class TvSeries(
+
+data class TvSeriesResponse(
     val id: Long,
     val name: String,
     val overview: String,

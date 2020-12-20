@@ -1,7 +1,7 @@
 package com.azuka.themovieapp.presentation.feature.movie
 
 import com.azuka.themovieapp.data.BaseResponse
-import com.azuka.themovieapp.data.Movie
+import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.feature.movie.utils.TestUtils
 import com.azuka.themovieapp.presentation.feature.movie.utils.mock
 import com.azuka.themovieapp.utils.Dummy

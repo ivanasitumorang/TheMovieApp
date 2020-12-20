@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.data
+package com.azuka.themovieapp.data.source.remote
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * Android Engineer
  */
 
-data class Movie(
+data class MovieResponse(
     val id: Long,
     val title: String,
     val overview: String,

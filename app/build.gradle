@@ -49,12 +49,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            buildConfigField "String", "TMDB_IMAGE_URL", "\"https://image.tmdb.org/t/p/\""
+            buildConfigField "String", "TMDB_IMAGE_URL", "\"https://image.tmdb.org/t/p\""
         }
 
         release {
             minifyEnabled true
-            buildConfigField "String", "TMDB_IMAGE_URL", "\"https://image.tmdb.org/t/p/\""
+            buildConfigField "String", "TMDB_IMAGE_URL", "\"https://image.tmdb.org/t/p\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

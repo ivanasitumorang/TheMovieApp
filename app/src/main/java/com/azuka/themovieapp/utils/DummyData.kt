@@ -1,9 +1,9 @@
 package com.azuka.themovieapp.utils
 
 import com.azuka.themovieapp.data.BaseResponse
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
 import com.azuka.themovieapp.extension.convert
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 
 
 /**
