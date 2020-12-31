@@ -1,6 +1,7 @@
 package com.azuka.themovieapp.presentation.feature.movie
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.azuka.themovieapp.BaseFragment
@@ -36,6 +37,7 @@ class MovieFragment : BaseFragment() {
                     )
                 )
             }
+            loadingMovie.visibility = View.GONE
             rvMovie.adapter = adapter
         })
     }
