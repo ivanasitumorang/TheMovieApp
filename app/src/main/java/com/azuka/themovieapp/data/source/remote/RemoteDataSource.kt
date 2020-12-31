@@ -4,6 +4,7 @@ import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.remote.network.AppNetworkService
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
+import com.azuka.themovieapp.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(private val networkService: AppNetworkService) {
 
     fun getMovies(callback: LoadMovieCallback) {
+        EspressoIdlingResource.increment()
         var result = BaseResponse<MovieResponse>()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getPopularMovies(
@@ -30,10 +32,12 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
             }
 
             callback.onMovieReceived(result)
+            EspressoIdlingResource.decrement()
         }
     }
 
     fun getTvSeries(callback: LoadTvSeriesCallback) {
+        EspressoIdlingResource.increment()
         var result = BaseResponse<TvSeriesResponse>()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getPopularTvSeries(
@@ -46,10 +50,12 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
             }
 
             callback.onTvSeriesReceived(result)
+            EspressoIdlingResource.decrement()
         }
     }
 
     fun getMovieDetail(movieId: Long, onReceived: (MovieResponse) -> Unit) {
+        EspressoIdlingResource.increment()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getDetailMovies(
                 apiKey = "edf78280d6daf8a04ce207ab946a53df",
@@ -60,10 +66,12 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
                     onReceived.invoke(responseBody)
                 }
             }
+            EspressoIdlingResource.decrement()
         }
     }
 
     fun getTvSeriesDetail(tvSeriesId: Long, onReceived: (TvSeriesResponse) -> Unit) {
+        EspressoIdlingResource.increment()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getDetailTvSeries(
                 apiKey = "edf78280d6daf8a04ce207ab946a53df",
@@ -74,6 +82,7 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
                     onReceived.invoke(responseBody)
                 }
             }
+            EspressoIdlingResource.decrement()
         }
     }
 
