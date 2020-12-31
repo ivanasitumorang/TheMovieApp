@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.movie.utils
+package com.azuka.themovieapp.utils
 
 import org.mockito.Mockito
 

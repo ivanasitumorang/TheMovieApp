@@ -3,10 +3,9 @@ package com.azuka.themovieapp.presentation.feature.tvseries
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.azuka.themovieapp.BuildConfig
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.adapter.GeneralMovieAdapter
-import com.azuka.themovieapp.data.TvSeries
+import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 
@@ -31,8 +30,7 @@ class TvSeriesAdapter(
         GeneralMovieAdapter.ViewHolder<TvSeries>(itemView) {
         override fun bind(data: TvSeries, clickListener: (TvSeries) -> Unit) {
             itemView.apply {
-                val posterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${data.posterPath}"
-                Picasso.get().load(posterPath)
+                Picasso.get().load(data.posterPath)
                     .into(ivMovie)
                 tvMovieTitle.text = data.name
                 tvItemLanguage.text = data.originalLanguage

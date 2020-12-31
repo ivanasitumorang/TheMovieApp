@@ -7,14 +7,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.azuka.themovieapp.BaseFragment
-import com.azuka.themovieapp.BuildConfig
 import com.azuka.themovieapp.R
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.utils.Constants
-import com.azuka.themovieapp.utils.DummyData
-import com.azuka.themovieapp.utils.MovieViewModelFactory
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 
@@ -23,14 +21,13 @@ import kotlinx.android.synthetic.main.fragment_detail.*
  * Android Engineer
  */
 
+@AndroidEntryPoint
 class DetailFragment : BaseFragment() {
 
     private var dataType: String? = null
     private var movieId: Long? = null
 
-    private val viewModel: DetailViewModel by viewModels(factoryProducer = {
-        MovieViewModelFactory(DummyData)
-    })
+    private val viewModel: DetailViewModel by viewModels()
 
     override val viewLayout: Int = R.layout.fragment_detail
 
@@ -48,24 +45,34 @@ class DetailFragment : BaseFragment() {
         }
 
         setupUI()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        viewModel.getMovieDetail().observe(this, {
+            setupContentMovie(it)
+            hideLoading()
+        })
+
+        viewModel.getTvSeriesDetail().observe(this, {
+            setupContentTvSeries(it)
+            hideLoading()
+        })
     }
 
     private fun setupUI() {
         movieId?.let {
             if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
-                val movie = viewModel.getMovieById(it)
-                setupContentMovie(movie)
+                viewModel.setSelectedMovie(it)
             } else {
-                val tvSeries = viewModel.getTvSeriesById(it)
-                setupContentTvSeries(tvSeries)
+                viewModel.setSelectedTvSeriesId(it)
             }
         }
     }
 
     private fun setupContentMovie(movie: Movie?) {
         movie?.let {
-            val moviePosterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${movie.posterPath}"
-            Picasso.get().load(moviePosterPath).into(ivDetailImage)
+            Picasso.get().load(movie.posterPath).into(ivDetailImage)
             tvDetailTitle.text = movie.title
             rbDetail.rating = (movie.voteAverage / 2).toFloat()
             tvDetailRating.text = getString(R.string.item_votes, movie.voteAverage)
@@ -79,8 +86,7 @@ class DetailFragment : BaseFragment() {
 
     private fun setupContentTvSeries(tvSeries: TvSeries?) {
         tvSeries?.let {
-            val seriesPosterPath = "${BuildConfig.TMDB_IMAGE_URL}/w500/${tvSeries.posterPath}"
-            Picasso.get().load(seriesPosterPath).into(ivDetailImage)
+            Picasso.get().load(tvSeries.posterPath).into(ivDetailImage)
             tvDetailTitle.text = tvSeries.name
             rbDetail.rating = (tvSeries.voteAverage / 2).toFloat()
             tvDetailRating.text = getString(R.string.item_votes, tvSeries.voteAverage)
@@ -89,5 +95,9 @@ class DetailFragment : BaseFragment() {
             tvDetailVoteCount.text = tvSeries.voteCount.toString()
             tvDetailOverview.text = tvSeries.overview
         }
+    }
+
+    private fun hideLoading() {
+        loadingDetail.visibility = View.GONE
     }
 }

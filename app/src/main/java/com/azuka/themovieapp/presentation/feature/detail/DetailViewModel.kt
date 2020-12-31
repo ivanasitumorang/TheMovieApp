@@ -1,9 +1,11 @@
 package com.azuka.themovieapp.presentation.feature.detail
 
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.azuka.themovieapp.data.Movie
-import com.azuka.themovieapp.data.TvSeries
-import com.azuka.themovieapp.utils.Dummy
+import com.azuka.themovieapp.data.source.Repository
+import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.TvSeries
 
 
 /**
@@ -11,24 +13,21 @@ import com.azuka.themovieapp.utils.Dummy
  * Android Engineer
  */
 
-class DetailViewModel(private val dummy: Dummy) : ViewModel() {
-    fun getTvSeriesById(tvSeriesId: Long): TvSeries? {
-        return getTvSeriesDummy().find { tvSeries ->
-            tvSeries.id == tvSeriesId
-        }
+class DetailViewModel @ViewModelInject constructor(private val repository: Repository) :
+    ViewModel() {
+
+    private var movieId: Long = 0
+    private var tvSeriesId: Long = 0
+
+    fun setSelectedMovie(movieId: Long) {
+        this.movieId = movieId
     }
 
-    fun getMovieById(movieId: Long): Movie? {
-        return getMoviesDummy().find { movie ->
-            movie.id == movieId
-        }
+    fun setSelectedTvSeriesId(tvSeriesId: Long) {
+        this.tvSeriesId = tvSeriesId
     }
 
-    private fun getMoviesDummy(): List<Movie> {
-        return dummy.getDummyMovies().results
-    }
+    fun getMovieDetail(): LiveData<Movie> = repository.getMovieDetail(movieId)
 
-    private fun getTvSeriesDummy(): List<TvSeries> {
-        return dummy.getDummyTvSeries().results
-    }
+    fun getTvSeriesDetail(): LiveData<TvSeries> = repository.getTvSeriesDetail(tvSeriesId)
 }
