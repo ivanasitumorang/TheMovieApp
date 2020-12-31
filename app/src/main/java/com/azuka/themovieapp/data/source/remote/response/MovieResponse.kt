@@ -9,12 +9,12 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class MovieResponse(
-    val id: Long = -1,
-    val title: String = "",
-    val overview: String = "",
-    @SerializedName("vote_average") val voteAverage: Double = 0.0,
-    @SerializedName("vote_count") val voteCount: Long = 0,
-    @SerializedName("release_date") val releaseDate: String = "",
-    @SerializedName("original_language") val originalLanguage: String = "",
-    @SerializedName("poster_path") val posterPath: String = "",
+    val id: Long,
+    val title: String,
+    val overview: String,
+    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_count") val voteCount: Long,
+    @SerializedName("release_date") val releaseDate: String,
+    @SerializedName("original_language") val originalLanguage: String,
+    @SerializedName("poster_path") val posterPath: String,
 )
