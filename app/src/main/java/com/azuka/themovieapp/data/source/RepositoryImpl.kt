@@ -44,4 +44,22 @@ class RepositoryImpl @Inject constructor(private val remoteSource: RemoteDataSou
 //
         return tvSeries
     }
+
+    override fun getMovieDetail(movieId: Long): LiveData<Movie> {
+        val movieDetail = MutableLiveData<Movie>()
+        remoteSource.getMovieDetail(movieId) { movieResponse ->
+            movieDetail.postValue(MovieDataMapper.mapResponseToDomain(movieResponse))
+        }
+
+        return movieDetail
+    }
+
+    override fun getTvSeriesDetail(tvSeriesId: Long): LiveData<TvSeries> {
+        val tvSeriesDetail = MutableLiveData<TvSeries>()
+        remoteSource.getTvSeriesDetail(tvSeriesId) { tvSeriesResponse ->
+            tvSeriesDetail.postValue(TvSeriesDataMapper.mapResponseToDomain(tvSeriesResponse))
+        }
+
+        return tvSeriesDetail
+    }
 }

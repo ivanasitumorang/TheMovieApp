@@ -13,4 +13,6 @@ import com.azuka.themovieapp.presentation.entity.TvSeries
 interface Repository {
     fun getMovies(): LiveData<List<Movie>>
     fun getTvSeries(): LiveData<List<TvSeries>>
+    fun getMovieDetail(movieId: Long): LiveData<Movie>
+    fun getTvSeriesDetail(tvSeriesId: Long): LiveData<TvSeries>
 }

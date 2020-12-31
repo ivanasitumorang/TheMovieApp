@@ -17,33 +17,27 @@ import kotlinx.coroutines.launch
 class DetailViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
 
+    private var movieId: Long = 0
+
     private val _selectedTvSeries = MutableLiveData<TvSeries>()
     val selectedTvSeries: LiveData<TvSeries> = _selectedTvSeries
 
     private val _selectedMovie = MutableLiveData<Movie?>()
     val selectedMovie: LiveData<Movie?> = _selectedMovie
 
-
-    private val movieList = repository.getMovies()
+    fun setSelectedMovie(movieId: Long) {
+        this.movieId = movieId
+    }
 
     fun getTvSeriesById(tvSeriesId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val tvSeriesList = repository.getTvSeries()
-            Transformations.switchMap(tvSeriesList) { list ->
-                val live = MutableLiveData<TvSeries>()
-                val tvSeries = list.first { tvSeries -> tvSeries.id == tvSeriesId }
-                live.value = tvSeries
-                live
+            val tvSeriesDetail = repository.getTvSeriesDetail(tvSeriesId)
+            Transformations.switchMap(tvSeriesDetail) {
+                _selectedTvSeries.postValue(it)
+                selectedTvSeries
             }
         }
     }
 
-    fun getMovieById(movieId: Long) {
-        Transformations.switchMap(movieList) { list ->
-            val live = MutableLiveData<Movie>()
-            val movie = list.first { movie -> movie.id == movieId }
-            live.value = movie
-            live
-        }
-    }
+    fun getMovieDetail(): LiveData<Movie> = repository.getMovieDetail(movieId)
 }

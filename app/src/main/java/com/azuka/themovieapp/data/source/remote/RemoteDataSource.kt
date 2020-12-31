@@ -1,5 +1,6 @@
 package com.azuka.themovieapp.data.source.remote
 
+import android.util.Log
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.remote.network.AppNetworkService
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
@@ -46,6 +47,41 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
             }
 
             callback.onTvSeriesReceived(result)
+        }
+    }
+
+    fun getMovieDetail(movieId: Long, onReceived: (MovieResponse) -> Unit) {
+        var result = MovieResponse()
+        CoroutineScope(Dispatchers.IO).launch {
+            networkService.getDetailMovies(
+                apiKey = "edf78280d6daf8a04ce207ab946a53df",
+                movieId = movieId
+            ).apply {
+                if (isSuccessful) {
+                    val responseBody = body() as MovieResponse
+                    result = responseBody
+//                    onReceived.invoke(responseBody)
+                    Log.i("Coba", "sukses")
+                } else {
+                    Log.i("Coba", "gagal")
+                }
+            }
+
+            onReceived.invoke(result)
+        }
+    }
+
+    fun getTvSeriesDetail(tvSeriesId: Long, onReceived: (TvSeriesResponse) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            networkService.getDetailTvSeries(
+                apiKey = "edf78280d6daf8a04ce207ab946a53df",
+                tvSeriesId = tvSeriesId
+            ).apply {
+                if (isSuccessful) {
+                    val responseBody = body() as TvSeriesResponse
+                    onReceived.invoke(responseBody)
+                }
+            }
         }
     }
 

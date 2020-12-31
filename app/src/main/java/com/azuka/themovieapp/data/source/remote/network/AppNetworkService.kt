@@ -5,6 +5,7 @@ import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -24,4 +25,16 @@ interface AppNetworkService {
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String
     ): Response<BaseResponse<MovieResponse>>
+
+    @GET("/3/movie/{movie_id}")
+    suspend fun getDetailMovies(
+        @Path("movie_id") movieId: Long,
+        @Query("api_key") apiKey: String
+    ): Response<MovieResponse>
+
+    @GET("/3/tv/{tv_id}")
+    suspend fun getDetailTvSeries(
+        @Path("tv_id") tvSeriesId: Long,
+        @Query("api_key") apiKey: String
+    ): Response<TvSeriesResponse>
 }
