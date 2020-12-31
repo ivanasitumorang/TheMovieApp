@@ -29,7 +29,7 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun setupUI() {
-        viewModel.movieList.observe(this, { movieList ->
+        viewModel.getMovieList().observe(this, { movieList ->
             val adapter = MovieAdapter(movieList) { movie ->
                 parentFragment?.findNavController()?.navigate(
                     HomeFragmentDirections.actionHomeFragmentToDetailFragment(
