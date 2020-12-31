@@ -2,6 +2,8 @@ package com.azuka.themovieapp.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
+import com.azuka.themovieapp.data.source.remote.response.MovieResponse
+import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
 import com.azuka.themovieapp.utils.LiveDataTestUtil
 import com.azuka.themovieapp.utils.TestUtils
 import io.mockk.every
@@ -63,6 +65,51 @@ class RepositoryTest {
 
         assertNotNull(tvSeriesListValue)
         assertEquals(baseResponseTvSeries.results.size, tvSeriesListValue.size)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @Test
+    fun `get movie detail by id = '761053' successfully`() {
+        val movieId = 761053L
+        val movieResponse = TestUtils.getMovieResponseDetailData(movieId)
+
+        every { remoteSource.getMovieDetail(movieId, any()) }
+            .answers {
+                // args 0 => params 'movieId: Long', args 1 => 'onReceived: (MovieResponse) -> Unit'
+                (invocation.args[1] as (MovieResponse) -> Unit)
+                    .invoke(movieResponse)
+            }
+
+        val movieDetailValue = LiveDataTestUtil.getValue(repository.getMovieDetail(movieId))
+        verify {
+            remoteSource.getMovieDetail(movieId, any())
+        }
+
+        assertNotNull(movieDetailValue)
+        assertEquals(movieResponse.id, movieDetailValue.id)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @Test
+    fun `get tv series detail by id = '100' successfully`() {
+        val tvSeriesId = 100L
+        val tvSeriesResponse = TestUtils.getTvSeriesResponseDetailData(tvSeriesId)
+
+        every { remoteSource.getTvSeriesDetail(tvSeriesId, any()) }
+            .answers {
+                // args 0 => params 'tvSeriesId: Long', args 1 => 'onReceived: (TvSeriesResponse) -> Unit'
+                (invocation.args[1] as (TvSeriesResponse) -> Unit)
+                    .invoke(tvSeriesResponse)
+            }
+
+        val tvSeriesDetailValue =
+            LiveDataTestUtil.getValue(repository.getTvSeriesDetail(tvSeriesId))
+        verify {
+            remoteSource.getTvSeriesDetail(tvSeriesId, any())
+        }
+
+        assertNotNull(tvSeriesDetailValue)
+        assertEquals(tvSeriesResponse.id, tvSeriesDetailValue.id)
     }
 
 }

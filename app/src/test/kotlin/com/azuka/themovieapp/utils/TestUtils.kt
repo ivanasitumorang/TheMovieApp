@@ -26,8 +26,20 @@ object TestUtils {
         }
     }
 
+    fun getMovieResponseDetailData(movieId: Long): MovieResponse {
+        return getBaseResponseMovieDataFromJson().results.first { movie ->
+            movie.id == movieId
+        }
+    }
+
     fun getTvSeriesDetailData(tvSeriesId: Long): TvSeries {
         return getTvSeriesDataFromJson().first { tvSeries ->
+            tvSeries.id == tvSeriesId
+        }
+    }
+
+    fun getTvSeriesResponseDetailData(tvSeriesId: Long): TvSeriesResponse {
+        return getBaseResponseTvSeriesDataFromJson().results.first { tvSeries ->
             tvSeries.id == tvSeriesId
         }
     }
