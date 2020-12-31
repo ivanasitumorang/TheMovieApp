@@ -18,44 +18,16 @@ import java.io.StringWriter
 object TestUtils {
     fun getEmptyMovieData() = emptyList<Movie>()
 
-    fun getRandomMovieData(size: Int = 1): List<Movie> {
-        val list = mutableListOf<Movie>()
-        (0 until size).forEachIndexed { index, _ ->
-            list.add(
-                Movie(
-                    id = index.toLong(),
-                    title = "azuka",
-                    overview = "azuka",
-                    voteAverage = 8.9,
-                    voteCount = 100,
-                    releaseDate = "27-11-2020",
-                    originalLanguage = "en",
-                    posterPath = "/url.jpg"
-                )
-            )
+    fun getMovieDetailData(movieId: Long): Movie {
+        return getMovieDataFromJson().first { movie ->
+            movie.id == movieId
         }
-
-        return list
     }
 
-    fun getRandomTvSeriesData(size: Int = 1): List<TvSeries> {
-        val list = mutableListOf<TvSeries>()
-        (0 until size).forEachIndexed { index, _ ->
-            list.add(
-                TvSeries(
-                    id = index.toLong(),
-                    name = "azuka",
-                    overview = "azuka",
-                    voteAverage = 8.9,
-                    voteCount = 100,
-                    firstAirDate = "27-11-2020",
-                    originalLanguage = "en",
-                    posterPath = "/url.jpg"
-                )
-            )
+    fun getTvSeriesDetailData(tvSeriesId: Long): TvSeries {
+        return getTvSeriesDataFromJson().first { tvSeries ->
+            tvSeries.id == tvSeriesId
         }
-
-        return list
     }
 
     fun getMovieDataFromJson(): List<Movie> {
