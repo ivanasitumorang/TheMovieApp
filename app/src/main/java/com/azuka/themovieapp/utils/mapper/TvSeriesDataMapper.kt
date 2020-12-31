@@ -1,7 +1,7 @@
 package com.azuka.themovieapp.utils.mapper
 
 import com.azuka.themovieapp.BuildConfig
-import com.azuka.themovieapp.data.source.remote.TvSeriesResponse
+import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
 import com.azuka.themovieapp.presentation.entity.TvSeries
 
 

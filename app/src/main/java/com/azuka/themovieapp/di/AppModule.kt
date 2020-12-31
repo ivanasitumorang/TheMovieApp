@@ -19,7 +19,4 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideRepository(repository: RepositoryImpl): Repository
-//
-//    @Binds
-//    abstract fun provideRemoteDataSource
 }

@@ -1,5 +1,6 @@
 package com.azuka.themovieapp.data.source
 
+import androidx.lifecycle.LiveData
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 
@@ -10,6 +11,6 @@ import com.azuka.themovieapp.presentation.entity.TvSeries
  */
 
 interface Repository {
-    fun getMovies(): List<Movie>
-    fun getTvSeries(): List<TvSeries>
+    fun getMovies(): LiveData<List<Movie>>
+    fun getTvSeries(): LiveData<List<TvSeries>>
 }

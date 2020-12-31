@@ -28,14 +28,15 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun setupUI() {
-        val movieList = viewModel.getMoviesDummy()
-        val adapter = MovieAdapter(movieList) { movie ->
-            parentFragment?.findNavController()?.navigate(
-                HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                    movie.id, Constants.Movie.TAG_MOVIE_TYPE
+        viewModel.movieList.observe(this, { movieList ->
+            val adapter = MovieAdapter(movieList) { movie ->
+                parentFragment?.findNavController()?.navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                        movie.id, Constants.Movie.TAG_MOVIE_TYPE
+                    )
                 )
-            )
-        }
-        rvMovie.adapter = adapter
+            }
+            rvMovie.adapter = adapter
+        })
     }
 }

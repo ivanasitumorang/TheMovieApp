@@ -45,16 +45,25 @@ class DetailFragment : BaseFragment() {
         }
 
         setupUI()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        viewModel.selectedMovie.observe(this, {
+            setupContentMovie(it)
+        })
+
+        viewModel.selectedTvSeries.observe(this, {
+            setupContentTvSeries(it)
+        })
     }
 
     private fun setupUI() {
         movieId?.let {
             if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
-                val movie = viewModel.getMovieById(it)
-                setupContentMovie(movie)
+                viewModel.getMovieById(it)
             } else {
-                val tvSeries = viewModel.getTvSeriesById(it)
-                setupContentTvSeries(tvSeries)
+                viewModel.getTvSeriesById(it)
             }
         }
     }

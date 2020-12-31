@@ -25,17 +25,21 @@ class TvSeriesFragment : BaseFragment() {
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
         setupUI()
+        viewModel.getTvSeries()
     }
 
     private fun setupUI() {
-        val tvSeriesList = viewModel.getTvSeriesDummy()
-        val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
-            parentFragment?.findNavController()?.navigate(
-                HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                    tvSeries.id, Constants.Movie.TAG_TV_SERIES_TYPE
-                )
-            )
-        }
-        rvTvSeries.adapter = adapter
+        viewModel.getTvSeries().observe(this, { tvSeriesList ->
+            tvSeriesList?.let {
+                val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
+                    parentFragment?.findNavController()?.navigate(
+                        HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                            tvSeries.id, Constants.Movie.TAG_TV_SERIES_TYPE
+                        )
+                    )
+                }
+                rvTvSeries.adapter = adapter
+            }
+        })
     }
 }

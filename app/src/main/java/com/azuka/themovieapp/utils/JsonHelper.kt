@@ -2,8 +2,8 @@ package com.azuka.themovieapp.utils
 
 import android.util.Log
 import com.azuka.themovieapp.data.BaseResponse
-import com.azuka.themovieapp.data.source.remote.MovieResponse
-import com.azuka.themovieapp.data.source.remote.TvSeriesResponse
+import com.azuka.themovieapp.data.source.remote.response.MovieResponse
+import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
 import com.azuka.themovieapp.extension.convert
 import com.azuka.themovieapp.extension.convertStringToMap
 import java.io.*

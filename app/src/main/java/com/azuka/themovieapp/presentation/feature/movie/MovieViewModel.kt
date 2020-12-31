@@ -1,6 +1,7 @@
 package com.azuka.themovieapp.presentation.feature.movie
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.azuka.themovieapp.data.source.Repository
 import com.azuka.themovieapp.presentation.entity.Movie
@@ -14,5 +15,5 @@ import com.azuka.themovieapp.presentation.entity.Movie
 class MovieViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
 
-    fun getMoviesDummy(): List<Movie> = repository.getMovies()
+    val movieList: LiveData<List<Movie>> = repository.getMovies()
 }

@@ -1,6 +1,8 @@
 package com.azuka.themovieapp.presentation.feature.tvseries
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.azuka.themovieapp.data.source.Repository
 import com.azuka.themovieapp.presentation.entity.TvSeries
@@ -14,5 +16,10 @@ import com.azuka.themovieapp.presentation.entity.TvSeries
 class TvSeriesViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
 
-    fun getTvSeriesDummy(): List<TvSeries> = repository.getTvSeries()
+    private val _tvSeriesList = MediatorLiveData<List<TvSeries>>()
+    val tvSeriesList: LiveData<List<TvSeries>> = _tvSeriesList
+
+    fun getTvSeries(): LiveData<List<TvSeries>> = repository.getTvSeries()
+
+
 }
