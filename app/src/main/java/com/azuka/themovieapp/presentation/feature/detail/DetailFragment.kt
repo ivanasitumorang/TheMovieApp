@@ -51,10 +51,12 @@ class DetailFragment : BaseFragment() {
     private fun setupObserver() {
         viewModel.getMovieDetail().observe(this, {
             setupContentMovie(it)
+            hideLoading()
         })
 
         viewModel.getTvSeriesDetail().observe(this, {
             setupContentTvSeries(it)
+            hideLoading()
         })
     }
 
@@ -93,5 +95,9 @@ class DetailFragment : BaseFragment() {
             tvDetailVoteCount.text = tvSeries.voteCount.toString()
             tvDetailOverview.text = tvSeries.overview
         }
+    }
+
+    private fun hideLoading() {
+        loadingDetail.visibility = View.GONE
     }
 }
