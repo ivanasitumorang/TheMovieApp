@@ -36,12 +36,6 @@ class RepositoryImpl @Inject constructor(private val remoteSource: RemoteDataSou
 
         })
 
-//        tvSeriesSource.addSource(remoteSource.getTvSeries()) {
-//            val tvSeriesList = TvSeriesDataMapper.mapResponsesToDomains(it.results)
-//            tvSeriesSource.postValue(tvSeriesList)
-//        }
-//        tvSeriesSource.removeSource(remoteSource.getTvSeries())
-//
         return tvSeries
     }
 

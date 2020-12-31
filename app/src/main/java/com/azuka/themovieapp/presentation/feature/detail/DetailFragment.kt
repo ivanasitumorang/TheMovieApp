@@ -1,7 +1,6 @@
 package com.azuka.themovieapp.presentation.feature.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -51,11 +50,10 @@ class DetailFragment : BaseFragment() {
 
     private fun setupObserver() {
         viewModel.getMovieDetail().observe(this, {
-            Log.i("Coba", "$it")
             setupContentMovie(it)
         })
 
-        viewModel.selectedTvSeries.observe(this, {
+        viewModel.getTvSeriesDetail().observe(this, {
             setupContentTvSeries(it)
         })
     }
@@ -65,7 +63,7 @@ class DetailFragment : BaseFragment() {
             if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
                 viewModel.setSelectedMovie(it)
             } else {
-                viewModel.getTvSeriesById(it)
+                viewModel.setSelectedTvSeriesId(it)
             }
         }
     }

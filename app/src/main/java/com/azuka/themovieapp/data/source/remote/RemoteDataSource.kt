@@ -1,6 +1,5 @@
 package com.azuka.themovieapp.data.source.remote
 
-import android.util.Log
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.remote.network.AppNetworkService
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
@@ -51,7 +50,6 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
     }
 
     fun getMovieDetail(movieId: Long, onReceived: (MovieResponse) -> Unit) {
-        var result = MovieResponse()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getDetailMovies(
                 apiKey = "edf78280d6daf8a04ce207ab946a53df",
@@ -59,15 +57,9 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
             ).apply {
                 if (isSuccessful) {
                     val responseBody = body() as MovieResponse
-                    result = responseBody
-//                    onReceived.invoke(responseBody)
-                    Log.i("Coba", "sukses")
-                } else {
-                    Log.i("Coba", "gagal")
+                    onReceived.invoke(responseBody)
                 }
             }
-
-            onReceived.invoke(result)
         }
     }
 
