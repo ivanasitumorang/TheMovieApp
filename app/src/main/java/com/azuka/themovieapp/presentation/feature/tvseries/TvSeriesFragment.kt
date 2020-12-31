@@ -1,6 +1,7 @@
 package com.azuka.themovieapp.presentation.feature.tvseries
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.azuka.themovieapp.BaseFragment
@@ -38,6 +39,7 @@ class TvSeriesFragment : BaseFragment() {
                         )
                     )
                 }
+                loadingTvSeries.visibility = View.GONE
                 rvTvSeries.adapter = adapter
             }
         })
