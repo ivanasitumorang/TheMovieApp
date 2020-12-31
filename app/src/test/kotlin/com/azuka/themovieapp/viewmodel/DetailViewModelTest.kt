@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.viewmodel
+package com.azuka.themovieapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.azuka.themovieapp.data.source.Repository
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.detail.DetailViewModel
-import com.azuka.themovieapp.presentation.feature.movie.utils.TestUtils
+import com.azuka.themovieapp.utils.TestUtils
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Before

@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.viewmodel
+package com.azuka.themovieapp.viewmodel
 
 /**
  * Created by ivanaazuka on 27/11/20.
