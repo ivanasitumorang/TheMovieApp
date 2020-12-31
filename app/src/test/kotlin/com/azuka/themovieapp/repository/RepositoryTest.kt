@@ -1,6 +1,7 @@
 package com.azuka.themovieapp.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
@@ -28,6 +29,25 @@ class RepositoryTest {
 
     private val repository = FakeRepository(remoteSource)
 
+
+    @Test
+    fun `get movie list with empty value`() {
+        val baseResponseMovie = BaseResponse<MovieResponse>()
+
+        every { remoteSource.getMovies(any()) }
+            .answers {
+                (invocation.args[0] as RemoteDataSource.LoadMovieCallback)
+                    .onMovieReceived(baseResponseMovie)
+            }
+
+        val movieListValue = LiveDataTestUtil.getValue(repository.getMovies())
+        verify {
+            remoteSource.getMovies(any())
+        }
+
+        assertNotNull(movieListValue)
+        assertEquals(0, movieListValue.size)
+    }
 
     @Test
     fun `get movie list successfully`() {
@@ -65,6 +85,25 @@ class RepositoryTest {
 
         assertNotNull(tvSeriesListValue)
         assertEquals(baseResponseTvSeries.results.size, tvSeriesListValue.size)
+    }
+
+    @Test
+    fun `get tv series list with empty value`() {
+        val baseResponseTvSeries = BaseResponse<TvSeriesResponse>()
+
+        every { remoteSource.getTvSeries(any()) }
+            .answers {
+                (invocation.args[0] as RemoteDataSource.LoadTvSeriesCallback)
+                    .onTvSeriesReceived(baseResponseTvSeries)
+            }
+
+        val tvSeriesListValue = LiveDataTestUtil.getValue(repository.getTvSeries())
+        verify {
+            remoteSource.getTvSeries(any())
+        }
+
+        assertNotNull(tvSeriesListValue)
+        assertEquals(0, tvSeriesListValue.size)
     }
 
     @Suppress("UNCHECKED_CAST")
