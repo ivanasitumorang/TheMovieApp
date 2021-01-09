@@ -6,7 +6,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
+import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
 import com.azuka.themovieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tv_series.*
@@ -20,28 +22,41 @@ import kotlinx.android.synthetic.main.fragment_tv_series.*
 @AndroidEntryPoint
 class TvSeriesFragment : BaseFragment() {
 
-    private val viewModel: TvSeriesViewModel by viewModels()
+    private val tvSeriesViewModel: TvSeriesViewModel by viewModels()
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
+
+    private var isFavoriteScreen = false
 
     override val viewLayout: Int = R.layout.fragment_tv_series
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
+        isFavoriteScreen = navController.currentDestination?.id == R.id.favoritesFragment
         setupUI()
-        viewModel.getTvSeries()
     }
 
     private fun setupUI() {
-        viewModel.getTvSeries().observe(this, { tvSeriesList ->
-            tvSeriesList?.let {
-                val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
-                    parentFragment?.findNavController()?.navigate(
-                        HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                            tvSeries.id, Constants.Movie.TAG_TV_SERIES_TYPE
-                        )
+        if (isFavoriteScreen) {
+
+        } else {
+            tvSeriesViewModel.getTvSeries().observe(this, { tvSeriesList ->
+                populateTvSeriesList(tvSeriesList)
+            })
+        }
+
+    }
+
+    private fun populateTvSeriesList(tvSeriesList: List<TvSeries>?) {
+        tvSeriesList?.let {
+            val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
+                parentFragment?.findNavController()?.navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                        tvSeries.id, Constants.Movie.TAG_TV_SERIES_TYPE
                     )
-                }
-                loadingTvSeries.visibility = View.GONE
-                rvTvSeries.adapter = adapter
+                )
             }
-        })
+            loadingTvSeries.visibility = View.GONE
+            rvTvSeries.adapter = adapter
+        }
     }
 }
