@@ -30,4 +30,12 @@ class DetailViewModel @ViewModelInject constructor(private val repository: Repos
     fun getMovieDetail(): LiveData<Movie> = repository.getMovieDetail(movieId)
 
     fun getTvSeriesDetail(): LiveData<TvSeries> = repository.getTvSeriesDetail(tvSeriesId)
+
+    fun addMovieToFavorite(movie: Movie) {
+        repository.insertFavoriteMovie(movie)
+    }
+
+    fun addTvSeriesToFavorite(tvSeries: TvSeries) {
+        repository.insertFavoriteTvSeries(tvSeries)
+    }
 }

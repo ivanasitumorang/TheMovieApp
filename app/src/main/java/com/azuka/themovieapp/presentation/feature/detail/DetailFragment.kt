@@ -27,6 +27,10 @@ class DetailFragment : BaseFragment() {
     private var dataType: String? = null
     private var movieId: Long? = null
 
+    private var movie: Movie? = null
+
+    private var tvSeries: TvSeries? = null
+
     private val viewModel: DetailViewModel by viewModels()
 
     override val viewLayout: Int = R.layout.fragment_detail
@@ -46,15 +50,36 @@ class DetailFragment : BaseFragment() {
 
         setupUI()
         setupObserver()
+        setupUIListener()
+    }
+
+    private fun setupUIListener() {
+        btnFavorite.setOnClickListener {
+            when (dataType) {
+                Constants.Movie.TAG_MOVIE_TYPE -> {
+                    movie?.let {
+                        viewModel.addMovieToFavorite(it)
+                    }
+                }
+
+                Constants.Movie.TAG_TV_SERIES_TYPE -> {
+                    tvSeries?.let {
+                        viewModel.addTvSeriesToFavorite(it)
+                    }
+                }
+            }
+        }
     }
 
     private fun setupObserver() {
         viewModel.getMovieDetail().observe(this, {
+            movie = it
             setupContentMovie(it)
             hideLoading()
         })
 
         viewModel.getTvSeriesDetail().observe(this, {
+            tvSeries = it
             setupContentTvSeries(it)
             hideLoading()
         })
