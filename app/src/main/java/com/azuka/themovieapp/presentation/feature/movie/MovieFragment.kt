@@ -3,12 +3,12 @@ package com.azuka.themovieapp.presentation.feature.movie
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
+import com.azuka.themovieapp.presentation.feature.favorites.FavoritesFragmentDirections
 import com.azuka.themovieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -37,7 +37,9 @@ class MovieFragment : BaseFragment() {
 
     private fun setupUI() {
         if (isFavoriteScreen) {
-
+            favoriteViewModel.getMovieList().observe(this, { movieList ->
+                populateMovieList(movieList)
+            })
         } else {
             movieViewModel.getMovieList().observe(this, { movieList ->
                 populateMovieList(movieList)
@@ -49,14 +51,23 @@ class MovieFragment : BaseFragment() {
     private fun populateMovieList(movieList: List<Movie>?) {
         movieList?.let {
             val adapter = MovieAdapter(movieList) { movie ->
-                parentFragment?.findNavController()?.navigate(
-                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                        movie.id, Constants.Movie.TAG_MOVIE_TYPE
-                    )
-                )
+                navigateToDetail(movie.id)
             }
             loadingMovie.visibility = View.GONE
             rvMovie.adapter = adapter
         }
+    }
+
+    private fun navigateToDetail(tvSeriesId: Long) {
+        val action = if (isFavoriteScreen) {
+            FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(
+                tvSeriesId, Constants.Movie.TAG_MOVIE_TYPE
+            )
+        } else {
+            HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                tvSeriesId, Constants.Movie.TAG_MOVIE_TYPE
+            )
+        }
+        navController.navigate(action)
     }
 }

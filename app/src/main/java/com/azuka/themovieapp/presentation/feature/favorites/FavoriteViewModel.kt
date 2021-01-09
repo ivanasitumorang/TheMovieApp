@@ -34,6 +34,10 @@ class FavoriteViewModel @ViewModelInject constructor(private val repository: Rep
         repository.removeFavoriteTvSeries(id)
     }
 
+    fun getMovieList(): LiveData<List<Movie>> = repository.getFavoriteMovies()
+
+    fun getTvSeries(): LiveData<List<TvSeries>> = repository.getFavoriteTvShow()
+
     fun checkIfFavoriteMovie(id: Long): LiveData<Boolean> {
         return Transformations.switchMap(repository.getFavoriteMovies()) { movieList ->
             val isFavorite = MutableLiveData<Boolean>()
