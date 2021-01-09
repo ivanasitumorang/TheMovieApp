@@ -56,4 +56,12 @@ class RepositoryImpl @Inject constructor(private val remoteSource: RemoteDataSou
 
         return tvSeriesDetail
     }
+
+    override fun getFavoriteMovies(): LiveData<List<Movie>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFavoriteTvShow(): LiveData<List<TvSeries>> {
+        TODO("Not yet implemented")
+    }
 }
