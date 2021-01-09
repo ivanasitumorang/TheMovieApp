@@ -89,4 +89,16 @@ class RepositoryImpl @Inject constructor(
             localSource.insertFavoriteTvSeries(TvSeriesDataMapper.mapDomainToEntity(tvSeries))
         }
     }
+
+    override fun removeFavoriteMovie(movieId: Long) {
+        CoroutineScope(coroutineProvider.backgroundDispatcher()).launch {
+            localSource.deleteFavoriteMovie(movieId)
+        }
+    }
+
+    override fun removeFavoriteTvSeries(tvSeriesId: Long) {
+        CoroutineScope(coroutineProvider.backgroundDispatcher()).launch {
+            localSource.deleteFavoriteTvSeries(tvSeriesId)
+        }
+    }
 }

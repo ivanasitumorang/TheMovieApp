@@ -30,8 +30,8 @@ interface FavoriteDao {
     fun insertTvSeries(tvSeriesEntity: TvSeriesEntity)
 
     @Query("DELETE FROM t_movie WHERE id = :id")
-    fun deleteMovie(id: String)
+    fun deleteMovie(id: Long)
 
     @Query("DELETE FROM t_tv_series WHERE id = :id")
-    fun deleteTvSeries(id: String)
+    fun deleteTvSeries(id: Long)
 }

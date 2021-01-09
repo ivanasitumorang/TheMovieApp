@@ -26,6 +26,10 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 @AndroidEntryPoint
 class DetailFragment : BaseFragment() {
 
+    private val detailViewModel: DetailViewModel by viewModels()
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
+
     private var dataType: String? = null
     private var movieId: Long? = null
 
@@ -33,9 +37,7 @@ class DetailFragment : BaseFragment() {
 
     private var tvSeries: TvSeries? = null
 
-    private val detailViewModel: DetailViewModel by viewModels()
-
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    private var isFavorite = false
 
     override val viewLayout: Int = R.layout.fragment_detail
 
@@ -62,13 +64,15 @@ class DetailFragment : BaseFragment() {
             when (dataType) {
                 Constants.Movie.TAG_MOVIE_TYPE -> {
                     movie?.let {
-                        favoriteViewModel.addMovieToFavorite(it)
+                        if (isFavorite) favoriteViewModel.removeMovieFromFavorite(it.id)
+                        else favoriteViewModel.addMovieToFavorite(it)
                     }
                 }
 
                 Constants.Movie.TAG_TV_SERIES_TYPE -> {
                     tvSeries?.let {
-                        favoriteViewModel.addTvSeriesToFavorite(it)
+                        if (isFavorite) favoriteViewModel.removeTvSeriesFromFavorite(it.id)
+                        else favoriteViewModel.addTvSeriesToFavorite(it)
                     }
                 }
             }
@@ -108,6 +112,7 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun setFavoriteButtonState(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
         if (isFavorite) {
             btnFavorite.setImageDrawable(
                 ContextCompat.getDrawable(

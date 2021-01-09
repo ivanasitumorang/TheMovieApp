@@ -19,4 +19,6 @@ interface Repository {
     fun getFavoriteTvShow(): LiveData<List<TvSeries>>
     fun insertFavoriteMovie(movie: Movie)
     fun insertFavoriteTvSeries(tvSeries: TvSeries)
+    fun removeFavoriteMovie(movieId: Long)
+    fun removeFavoriteTvSeries(tvSeriesId: Long)
 }
