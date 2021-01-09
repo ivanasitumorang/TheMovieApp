@@ -2,6 +2,7 @@ package com.azuka.themovieapp.presentation.feature.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +11,7 @@ import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
+import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
 import com.azuka.themovieapp.utils.Constants
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +33,9 @@ class DetailFragment : BaseFragment() {
 
     private var tvSeries: TvSeries? = null
 
-    private val viewModel: DetailViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels()
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
 
     override val viewLayout: Int = R.layout.fragment_detail
 
@@ -58,13 +62,13 @@ class DetailFragment : BaseFragment() {
             when (dataType) {
                 Constants.Movie.TAG_MOVIE_TYPE -> {
                     movie?.let {
-                        viewModel.addMovieToFavorite(it)
+                        favoriteViewModel.addMovieToFavorite(it)
                     }
                 }
 
                 Constants.Movie.TAG_TV_SERIES_TYPE -> {
                     tvSeries?.let {
-                        viewModel.addTvSeriesToFavorite(it)
+                        favoriteViewModel.addTvSeriesToFavorite(it)
                     }
                 }
             }
@@ -72,25 +76,59 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun setupObserver() {
-        viewModel.getMovieDetail().observe(this, {
-            movie = it
-            setupContentMovie(it)
-            hideLoading()
-        })
+        when (dataType) {
+            Constants.Movie.TAG_MOVIE_TYPE -> {
+                detailViewModel.getMovieDetail().observe(this, {
+                    movie = it
+                    setupContentMovie(it)
+                    hideLoading()
+                })
 
-        viewModel.getTvSeriesDetail().observe(this, {
-            tvSeries = it
-            setupContentTvSeries(it)
-            hideLoading()
-        })
+                movieId?.let { id ->
+                    favoriteViewModel.checkIfFavoriteMovie(id).observe(this, { isFavorite ->
+                        setFavoriteButtonState(isFavorite)
+                    })
+                }
+            }
+
+            Constants.Movie.TAG_TV_SERIES_TYPE -> {
+                detailViewModel.getTvSeriesDetail().observe(this, {
+                    tvSeries = it
+                    setupContentTvSeries(it)
+                    hideLoading()
+                })
+
+                movieId?.let { id ->
+                    favoriteViewModel.checkIfFavoriteTvSeries(id).observe(this, { isFavorite ->
+                        setFavoriteButtonState(isFavorite)
+                    })
+                }
+            }
+        }
+    }
+
+    private fun setFavoriteButtonState(isFavorite: Boolean) {
+        if (isFavorite) {
+            btnFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(), R.drawable.ic_heart_fill
+                )
+            )
+        } else {
+            btnFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(), R.drawable.ic_heart_empty
+                )
+            )
+        }
     }
 
     private fun setupUI() {
         movieId?.let {
             if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
-                viewModel.setSelectedMovie(it)
+                detailViewModel.setSelectedMovie(it)
             } else {
-                viewModel.setSelectedTvSeriesId(it)
+                detailViewModel.setSelectedTvSeriesId(it)
             }
         }
     }

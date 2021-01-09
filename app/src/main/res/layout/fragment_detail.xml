@@ -57,8 +57,7 @@
                 android:layout_marginTop="@dimen/dimen_16"
                 android:layout_marginEnd="@dimen/dimen_16"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_pawprint"
-                android:tint="@color/gray_500"
+                android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,7 +71,7 @@
                 android:textColor="@color/gray_900"
                 android:textSize="@dimen/text_20"
                 app:fontFamily="@font/roboto_bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="The Movie Title" />
