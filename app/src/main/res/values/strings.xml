@@ -6,4 +6,6 @@
     <string name="detail_label_overview">Overview</string>
 
     <string name="item_votes">(%.1f of 10)</string>
+
+    <string name="favorite_bar_title">Favorite Movies</string>
 </resources>
