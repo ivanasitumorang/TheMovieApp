@@ -15,4 +15,6 @@ interface Repository {
     fun getTvSeries(): LiveData<List<TvSeries>>
     fun getMovieDetail(movieId: Long): LiveData<Movie>
     fun getTvSeriesDetail(tvSeriesId: Long): LiveData<TvSeries>
+    fun getFavoriteMovies(): LiveData<List<Movie>>
+    fun getFavoriteTvShow(): LiveData<List<TvSeries>>
 }
