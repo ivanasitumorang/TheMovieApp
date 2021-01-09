@@ -28,4 +28,13 @@
     <fragment
         android:id="@+id/tvSeriesFragment"
         android:name="com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.azuka.themovieapp.presentation.feature.favorites.FavoritesFragment"
+        android:label="FavoritesFragment">
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/favoritesFragment" />
+    </fragment>
 </navigation>
