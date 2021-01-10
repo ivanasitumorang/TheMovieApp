@@ -44,8 +44,10 @@ class TvSeriesFragmentTest {
 
         // make sure data favorite is available
         for (index in 0..10) {
-            addTvSeriesToFavorite(index)
+            tabFavoriteButton(index)
         }
+
+        tabFavoriteButton((3..7).random())
 
         // go to favorite page
         onView(withId(R.id.favoritesFragment)).perform(click())
@@ -53,11 +55,11 @@ class TvSeriesFragmentTest {
         // open tab Tv Series in Favorite Page
         onView(withText("Tv Series")).perform(click())
 
-        // check the favorite tv series list is displayed
+        // check the favorite tv series list is displayed & click first item
         onView(withId(R.id.rvTvSeries))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    3,
+                    0,
                     click()
                 )
             )
@@ -68,7 +70,7 @@ class TvSeriesFragmentTest {
             .check(matches(Matchers.not(withText(""))))
     }
 
-    private fun addTvSeriesToFavorite(index: Int) {
+    private fun tabFavoriteButton(index: Int) {
         // open detail tv series
         onView(withId(R.id.rvTvSeries))
             .perform(

@@ -46,17 +46,19 @@ class MovieFragmentTest {
 
         // make sure data favorite is available
         for (index in 0..10) {
-            addMovieToFavorite(index)
+            tabFavoriteButton(index)
         }
+
+        tabFavoriteButton((3..5).random())
 
         // go to favorite page
         onView(withId(R.id.favoritesFragment)).perform(click())
 
-        // check the favorite movie list is displayed
+        // check the favorite movie list is displayed & click first item
         onView(withId(R.id.rvMovie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    3,
+                    0,
                     click()
                 )
             )
@@ -67,7 +69,7 @@ class MovieFragmentTest {
             .check(matches(Matchers.not(withText(""))))
     }
 
-    private fun addMovieToFavorite(index: Int) {
+    private fun tabFavoriteButton(index: Int) {
         // open detail movie
         onView(withId(R.id.rvMovie))
             .perform(

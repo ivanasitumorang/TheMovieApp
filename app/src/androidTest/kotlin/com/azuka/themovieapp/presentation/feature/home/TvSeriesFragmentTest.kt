@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.tvseries
+package com.azuka.themovieapp.presentation.feature.home
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
