@@ -18,7 +18,7 @@ interface Repository {
     fun getMovieDetail(movieId: Long): LiveData<Movie>
     fun getTvSeriesDetail(tvSeriesId: Long): LiveData<TvSeries>
     fun getFavoriteMovies(): LiveData<PagedList<FavoriteGeneral>>
-    fun getFavoriteTvShow(): LiveData<PagedList<FavoriteGeneral>>
+    fun getFavoriteTvSeries(): LiveData<PagedList<FavoriteGeneral>>
     fun insertFavoriteMovie(movie: Movie)
     fun insertFavoriteTvSeries(tvSeries: TvSeries)
     fun removeFavoriteMovie(movieId: Long)
