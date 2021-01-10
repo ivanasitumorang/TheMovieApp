@@ -1,5 +1,6 @@
 package com.azuka.themovieapp.data.source.remote
 
+import com.azuka.themovieapp.BuildConfig
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.remote.network.AppNetworkService
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
@@ -23,7 +24,7 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
         var result = BaseResponse<MovieResponse>()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getPopularMovies(
-                apiKey = "edf78280d6daf8a04ce207ab946a53df"
+                apiKey = BuildConfig.TMDB_API_KEY
             ).apply {
                 if (isSuccessful) {
                     val responseBody = body() as BaseResponse<MovieResponse>
@@ -41,7 +42,7 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
         var result = BaseResponse<TvSeriesResponse>()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getPopularTvSeries(
-                apiKey = "edf78280d6daf8a04ce207ab946a53df"
+                apiKey = BuildConfig.TMDB_API_KEY
             ).apply {
                 if (isSuccessful) {
                     val responseBody = body() as BaseResponse<TvSeriesResponse>
@@ -58,7 +59,7 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
         EspressoIdlingResource.increment()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getDetailMovies(
-                apiKey = "edf78280d6daf8a04ce207ab946a53df",
+                apiKey = BuildConfig.TMDB_API_KEY,
                 movieId = movieId
             ).apply {
                 if (isSuccessful) {
@@ -74,7 +75,7 @@ class RemoteDataSource @Inject constructor(private val networkService: AppNetwor
         EspressoIdlingResource.increment()
         CoroutineScope(Dispatchers.IO).launch {
             networkService.getDetailTvSeries(
-                apiKey = "edf78280d6daf8a04ce207ab946a53df",
+                apiKey = BuildConfig.TMDB_API_KEY,
                 tvSeriesId = tvSeriesId
             ).apply {
                 if (isSuccessful) {
