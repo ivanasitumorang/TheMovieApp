@@ -82,22 +82,7 @@ class FakeRepository(
             .setPageSize(4)
             .build()
 
-        val favoriteSource = localSource.getFavoriteMovies().map {
-            with(it) {
-                FavoriteGeneral(
-                    id = id,
-                    title = title,
-                    overview = overview,
-                    voteAverage = voteAverage,
-                    voteCount = voteCount,
-                    releaseDate = releaseDate,
-                    originalLanguage = originalLanguage,
-                    posterPath = posterPath
-                )
-            }
-        }
-
-        return LivePagedListBuilder(favoriteSource, config).build()
+        return LivePagedListBuilder(localSource.getFavoriteMovies(), config).build()
     }
 
     override fun getFavoriteTvShow(): LiveData<PagedList<FavoriteGeneral>> {

@@ -1,13 +1,16 @@
 package com.azuka.themovieapp.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.paging.DataSource
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.local.LocalDataSource
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.utils.CoroutineContextProvider
 import com.azuka.themovieapp.utils.LiveDataTestUtil
+import com.azuka.themovieapp.utils.PagedListUtil
 import com.azuka.themovieapp.utils.TestUtils
 import io.mockk.every
 import io.mockk.mockk
@@ -155,6 +158,57 @@ class RepositoryTest {
 
         assertNotNull(tvSeriesDetailValue)
         assertEquals(tvSeriesResponse.id, tvSeriesDetailValue.id)
+    }
+
+    @Test
+    fun `get favorites movie from db`() {
+        val favoriteGeneralList = listOf(
+            FavoriteGeneral(
+                id = 1L,
+                title = "dummy title",
+                overview = "dummy overview",
+                voteAverage = 5.8,
+                voteCount = 100,
+                releaseDate = "01-01-2020",
+                originalLanguage = "en",
+                posterPath = "dummy url"
+            )
+        )
+        val dataSourceFactory: DataSource.Factory<Int, FavoriteGeneral> = mockk()
+
+        every { localSource.getFavoriteMovies() }
+            .returns(dataSourceFactory)
+
+        repository.getFavoriteMovies()
+
+        val favoriteList = PagedListUtil.mockPagedList(favoriteGeneralList)
+
+        verify {
+            localSource.getFavoriteMovies()
+        }
+
+        assertNotNull(favoriteList)
+        assertEquals(favoriteGeneralList.size, favoriteList.size)
+    }
+
+    @Test
+    fun `get favorites movie from db when no favorite movies`() {
+        val favoriteGeneralList = emptyList<FavoriteGeneral>()
+        val dataSourceFactory: DataSource.Factory<Int, FavoriteGeneral> = mockk()
+
+        every { localSource.getFavoriteMovies() }
+            .returns(dataSourceFactory)
+
+        repository.getFavoriteMovies()
+
+        val favoriteList = PagedListUtil.mockPagedList(favoriteGeneralList)
+
+        verify {
+            localSource.getFavoriteMovies()
+        }
+
+        assertNotNull(favoriteList)
+        assertEquals(0, favoriteList.size)
     }
 
 }
