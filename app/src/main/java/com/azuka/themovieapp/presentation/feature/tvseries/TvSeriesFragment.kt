@@ -3,8 +3,10 @@ package com.azuka.themovieapp.presentation.feature.tvseries
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.paging.PagedList
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
@@ -38,15 +40,8 @@ class TvSeriesFragment : BaseFragment() {
 
     private fun setupUI() {
         if (isFavoriteScreen) {
-            favoriteViewModel.getTvSeries().observe(this, { tvSeriesList ->
-                val adapter = FavoriteListAdapter { tvSeries ->
-                    navigateToDetail(tvSeries.id)
-                }
-
-                adapter.submitList(tvSeriesList)
-
-                loadingTvSeries.visibility = View.GONE
-                rvTvSeries.adapter = adapter
+            favoriteViewModel.getTvSeries().observe(this, { favoriteList ->
+                populateFavoriteTvSeriesList(favoriteList)
             })
         } else {
             tvSeriesViewModel.getTvSeries().observe(this, { tvSeriesList ->
@@ -61,19 +56,34 @@ class TvSeriesFragment : BaseFragment() {
             val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
                 navigateToDetail(tvSeries.id)
             }
-            loadingTvSeries.visibility = View.GONE
+            hideLoading()
             rvTvSeries.adapter = adapter
         }
     }
 
-    private fun navigateToDetail(tvSeriesId: Long) {
+    private fun populateFavoriteTvSeriesList(favoriteList: PagedList<FavoriteGeneral>) {
+        val adapter = FavoriteListAdapter { favoriteData ->
+            navigateToDetail(favoriteData.id)
+        }
+
+        adapter.submitList(favoriteList)
+        hideLoading()
+        rvTvSeries.adapter = adapter
+    }
+
+    private fun hideLoading() {
+        loadingTvSeries.visibility = View.GONE
+    }
+
+    private fun navigateToDetail(data: Any) {
         val action = if (isFavoriteScreen) {
             FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(
-                tvSeriesId, Constants.Movie.TAG_TV_SERIES_TYPE
+                favoriteData = data as FavoriteGeneral,
+                dataType = Constants.Movie.TAG_TV_SERIES_TYPE
             )
         } else {
             HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                tvSeriesId, Constants.Movie.TAG_TV_SERIES_TYPE
+                (data as TvSeries).id, Constants.Movie.TAG_TV_SERIES_TYPE
             )
         }
         navController.navigate(action)
