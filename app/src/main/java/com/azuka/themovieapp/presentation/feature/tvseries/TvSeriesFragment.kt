@@ -9,6 +9,7 @@ import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
 import com.azuka.themovieapp.presentation.feature.favorites.FavoritesFragmentDirections
+import com.azuka.themovieapp.presentation.feature.movie.FavoriteListAdapter
 import com.azuka.themovieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tv_series.*
@@ -38,7 +39,14 @@ class TvSeriesFragment : BaseFragment() {
     private fun setupUI() {
         if (isFavoriteScreen) {
             favoriteViewModel.getTvSeries().observe(this, { tvSeriesList ->
-                populateTvSeriesList(tvSeriesList)
+                val adapter = FavoriteListAdapter { tvSeries ->
+                    navigateToDetail(tvSeries.id)
+                }
+
+                adapter.submitList(tvSeriesList)
+
+                loadingTvSeries.visibility = View.GONE
+                rvTvSeries.adapter = adapter
             })
         } else {
             tvSeriesViewModel.getTvSeries().observe(this, { tvSeriesList ->

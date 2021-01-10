@@ -22,7 +22,7 @@ interface FavoriteDao {
     fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM t_tv_series")
-    fun getTvSeries(): LiveData<List<TvSeriesEntity>>
+    fun getTvSeries(): DataSource.Factory<Int, TvSeriesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movieEntity: MovieEntity)

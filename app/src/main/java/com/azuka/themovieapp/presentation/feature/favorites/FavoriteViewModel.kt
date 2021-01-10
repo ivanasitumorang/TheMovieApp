@@ -36,7 +36,7 @@ class FavoriteViewModel @ViewModelInject constructor(private val repository: Rep
 
     fun getMovieList(): LiveData<PagedList<FavoriteGeneral>> = repository.getFavoriteMovies()
 
-    fun getTvSeries(): LiveData<List<TvSeries>> = repository.getFavoriteTvShow()
+    fun getTvSeries(): LiveData<PagedList<FavoriteGeneral>> = repository.getFavoriteTvShow()
 
     fun checkIfFavoriteMovie(id: Long): LiveData<Boolean> = repository.checkIfFavoriteMovie(id)
 

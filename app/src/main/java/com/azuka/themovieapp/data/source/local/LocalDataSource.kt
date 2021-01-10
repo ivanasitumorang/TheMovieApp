@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(private val dao: FavoriteDao) {
     fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = dao.getMovies()
-    fun getTvSeries(): LiveData<List<TvSeriesEntity>> = dao.getTvSeries()
+    fun getTvSeries(): DataSource.Factory<Int, TvSeriesEntity> = dao.getTvSeries()
     fun insertFavoriteMovie(movieEntity: MovieEntity) = dao.insertMovie(movieEntity)
     fun insertFavoriteTvSeries(tvSeriesEntity: TvSeriesEntity) = dao.insertTvSeries(tvSeriesEntity)
     fun deleteFavoriteMovie(movieId: Long) = dao.deleteMovie(movieId)

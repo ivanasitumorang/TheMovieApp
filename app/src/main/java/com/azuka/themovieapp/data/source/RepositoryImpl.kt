@@ -94,10 +94,28 @@ class RepositoryImpl @Inject constructor(
         return LivePagedListBuilder(favoriteSource, config).build()
     }
 
-    override fun getFavoriteTvShow(): LiveData<List<TvSeries>> {
-        return Transformations.map(localSource.getTvSeries()) {
-            TvSeriesDataMapper.mapEntitiesToDomains(it)
+    override fun getFavoriteTvShow(): LiveData<PagedList<FavoriteGeneral>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+
+        val favoriteSource = localSource.getTvSeries().map {
+            with(it) {
+                FavoriteGeneral(
+                    id = id,
+                    title = name,
+                    overview = overview,
+                    voteAverage = voteAverage,
+                    voteCount = voteCount,
+                    releaseDate = firstAirDate,
+                    originalLanguage = originalLanguage,
+                    posterPath = posterPath
+                )
+            }
         }
+        return LivePagedListBuilder(favoriteSource, config).build()
     }
 
     override fun insertFavoriteMovie(movie: Movie) {
