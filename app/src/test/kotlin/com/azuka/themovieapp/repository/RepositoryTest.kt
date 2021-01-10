@@ -192,7 +192,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun `get favorites movie from db when no favorite movies`() {
+    fun `get favorites movie from db BUT no favorite movies`() {
         val favoriteGeneralList = emptyList<FavoriteGeneral>()
         val dataSourceFactory: DataSource.Factory<Int, FavoriteGeneral> = mockk()
 
@@ -205,6 +205,57 @@ class RepositoryTest {
 
         verify {
             localSource.getFavoriteMovies()
+        }
+
+        assertNotNull(favoriteList)
+        assertEquals(0, favoriteList.size)
+    }
+
+    @Test
+    fun `get favorites tv series from db`() {
+        val favoriteGeneralList = listOf(
+            FavoriteGeneral(
+                id = 1L,
+                title = "dummy title",
+                overview = "dummy overview",
+                voteAverage = 5.8,
+                voteCount = 100,
+                releaseDate = "01-01-2020",
+                originalLanguage = "en",
+                posterPath = "dummy url"
+            )
+        )
+        val dataSourceFactory: DataSource.Factory<Int, FavoriteGeneral> = mockk()
+
+        every { localSource.getFavoriteTvSeries() }
+            .returns(dataSourceFactory)
+
+        repository.getFavoriteTvSeries()
+
+        val favoriteList = PagedListUtil.mockPagedList(favoriteGeneralList)
+
+        verify {
+            localSource.getFavoriteTvSeries()
+        }
+
+        assertNotNull(favoriteList)
+        assertEquals(favoriteGeneralList.size, favoriteList.size)
+    }
+
+    @Test
+    fun `get favorites tv series from db BUT no favorite tv series`() {
+        val favoriteGeneralList = emptyList<FavoriteGeneral>()
+        val dataSourceFactory: DataSource.Factory<Int, FavoriteGeneral> = mockk()
+
+        every { localSource.getFavoriteTvSeries() }
+            .returns(dataSourceFactory)
+
+        repository.getFavoriteTvSeries()
+
+        val favoriteList = PagedListUtil.mockPagedList(favoriteGeneralList)
+
+        verify {
+            localSource.getFavoriteTvSeries()
         }
 
         assertNotNull(favoriteList)
