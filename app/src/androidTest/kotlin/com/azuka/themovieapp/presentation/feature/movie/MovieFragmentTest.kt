@@ -61,6 +61,22 @@ class MovieFragmentTest {
             .check(matches(not(withText(""))))
     }
 
+    @Test
+    fun test_tapButtonFavorite() {
+        // navigate to movie detail
+        val selectedItem = 0
+        onView(withId(R.id.rvMovie))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    selectedItem,
+                    click()
+                )
+            )
+
+        // adding/removing selected movie to/from favorite
+        onView(withId(R.id.btnFavorite)).perform(click())
+    }
+
     @After
     fun tearDown() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
