@@ -213,7 +213,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelDetailOverview"
                 tools:targetApi="o"
-                tools:text="English asdsa sdbsahj sakdhsj skajgdhjs sdasjh dsahbd sjhgdjs sajdbjhs sjahdhjs vsgs vhusgfds sdvsh sjhvdsva" />
+                tools:text="Overview" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
