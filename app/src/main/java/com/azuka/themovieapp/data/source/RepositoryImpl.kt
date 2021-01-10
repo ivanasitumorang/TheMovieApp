@@ -86,7 +86,7 @@ class RepositoryImpl @Inject constructor(
             .setPageSize(4)
             .build()
 
-        val favoriteSource = localSource.getTvSeries().map {
+        val favoriteSource = localSource.getFavoriteTvSeries().map {
             with(it) {
                 FavoriteGeneral(
                     id = id,

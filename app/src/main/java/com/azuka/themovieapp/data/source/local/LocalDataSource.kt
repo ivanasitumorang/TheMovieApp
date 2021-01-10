@@ -30,7 +30,7 @@ class LocalDataSource @Inject constructor(private val dao: FavoriteDao) {
         }
     }
 
-    fun getTvSeries(): DataSource.Factory<Int, TvSeriesEntity> = dao.getTvSeries()
+    fun getFavoriteTvSeries(): DataSource.Factory<Int, TvSeriesEntity> = dao.getTvSeries()
     fun insertFavoriteMovie(movieEntity: MovieEntity) = dao.insertMovie(movieEntity)
     fun insertFavoriteTvSeries(tvSeriesEntity: TvSeriesEntity) = dao.insertTvSeries(tvSeriesEntity)
     fun deleteFavoriteMovie(movieId: Long) = dao.deleteMovie(movieId)
