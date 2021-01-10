@@ -3,6 +3,7 @@ package com.azuka.themovieapp.presentation.feature.movie
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.paging.PagedList
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
@@ -39,16 +40,7 @@ class MovieFragment : BaseFragment() {
     private fun setupUI() {
         if (isFavoriteScreen) {
             favoriteViewModel.getMovieList().observe(this, { favoriteList ->
-                favoriteList?.let {
-                    val adapter = FavoriteListAdapter { favoriteData ->
-                        navigateToDetail(favoriteData)
-                    }
-
-                    adapter.submitList(favoriteList)
-
-                    rvMovie.adapter = adapter
-                    loadingMovie.visibility = View.GONE
-                }
+                populateFavoriteMovieList(favoriteList)
             })
         } else {
             movieViewModel.getMovieList().observe(this, { movieList ->
@@ -63,9 +55,23 @@ class MovieFragment : BaseFragment() {
             val adapter = MovieAdapter(movieList) { movie ->
                 navigateToDetail(movie)
             }
-            loadingMovie.visibility = View.GONE
+            hideLoading()
             rvMovie.adapter = adapter
         }
+    }
+
+    private fun populateFavoriteMovieList(favoriteList: PagedList<FavoriteGeneral>) {
+        val adapter = FavoriteListAdapter { favoriteData ->
+            navigateToDetail(favoriteData)
+        }
+
+        adapter.submitList(favoriteList)
+        hideLoading()
+        rvMovie.adapter = adapter
+    }
+
+    private fun hideLoading() {
+        loadingMovie.visibility = View.GONE
     }
 
     private fun navigateToDetail(data: Any) {

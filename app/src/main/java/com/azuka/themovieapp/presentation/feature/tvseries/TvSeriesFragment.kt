@@ -54,7 +54,7 @@ class TvSeriesFragment : BaseFragment() {
     private fun populateTvSeriesList(tvSeriesList: List<TvSeries>?) {
         tvSeriesList?.let {
             val adapter = TvSeriesAdapter(tvSeriesList) { tvSeries ->
-                navigateToDetail(tvSeries.id)
+                navigateToDetail(tvSeries)
             }
             hideLoading()
             rvTvSeries.adapter = adapter
@@ -63,7 +63,7 @@ class TvSeriesFragment : BaseFragment() {
 
     private fun populateFavoriteTvSeriesList(favoriteList: PagedList<FavoriteGeneral>) {
         val adapter = FavoriteListAdapter { favoriteData ->
-            navigateToDetail(favoriteData.id)
+            navigateToDetail(favoriteData)
         }
 
         adapter.submitList(favoriteList)
