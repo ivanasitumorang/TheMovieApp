@@ -7,6 +7,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.extension.convertToFiveRatings
 import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -46,7 +47,7 @@ class FavoriteListAdapter(
                     .into(ivMovie)
                 tvMovieTitle.text = data.title
                 tvItemLanguage.text = data.originalLanguage
-                ratingBar.rating = (data.voteAverage / 2).toFloat()
+                ratingBar.rating = data.voteAverage.convertToFiveRatings()
                 tvItemRating.text = context.getString(R.string.item_votes, data.voteAverage)
                 itemMovie.setOnClickListener { clickListener.invoke(data) }
             }

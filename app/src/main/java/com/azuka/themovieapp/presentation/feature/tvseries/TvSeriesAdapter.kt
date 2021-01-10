@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.adapter.GeneralMovieAdapter
+import com.azuka.themovieapp.extension.convertToFiveRatings
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -34,7 +35,7 @@ class TvSeriesAdapter(
                     .into(ivMovie)
                 tvMovieTitle.text = data.name
                 tvItemLanguage.text = data.originalLanguage
-                ratingBar.rating = (data.voteAverage / 2).toFloat()
+                ratingBar.rating = data.voteAverage.convertToFiveRatings()
                 tvItemRating.text = context.getString(R.string.item_votes, data.voteAverage)
                 itemMovie.setOnClickListener { clickListener.invoke(data) }
             }

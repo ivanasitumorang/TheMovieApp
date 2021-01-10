@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.extension.convertToFiveRatings
 import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
@@ -178,7 +179,7 @@ class DetailFragment : BaseFragment() {
         with(favoriteGeneral) {
             Picasso.get().load(posterPath).into(ivDetailImage)
             tvDetailTitle.text = title
-            rbDetail.rating = (voteAverage / 2).toFloat()
+            rbDetail.rating = voteAverage.convertToFiveRatings()
             tvDetailRating.text = getString(R.string.item_votes, voteAverage)
             tvDetailReleaseDate.text = releaseDate
             tvDetailLanguage.text = originalLanguage
@@ -191,7 +192,7 @@ class DetailFragment : BaseFragment() {
         movie?.let {
             Picasso.get().load(movie.posterPath).into(ivDetailImage)
             tvDetailTitle.text = movie.title
-            rbDetail.rating = (movie.voteAverage / 2).toFloat()
+            rbDetail.rating = movie.voteAverage.convertToFiveRatings()
             tvDetailRating.text = getString(R.string.item_votes, movie.voteAverage)
             tvDetailReleaseDate.text = movie.releaseDate
             tvDetailLanguage.text = movie.originalLanguage
@@ -205,7 +206,7 @@ class DetailFragment : BaseFragment() {
         tvSeries?.let {
             Picasso.get().load(tvSeries.posterPath).into(ivDetailImage)
             tvDetailTitle.text = tvSeries.name
-            rbDetail.rating = (tvSeries.voteAverage / 2).toFloat()
+            rbDetail.rating = tvSeries.voteAverage.convertToFiveRatings()
             tvDetailRating.text = getString(R.string.item_votes, tvSeries.voteAverage)
             tvDetailReleaseDate.text = tvSeries.firstAirDate
             tvDetailLanguage.text = tvSeries.originalLanguage
