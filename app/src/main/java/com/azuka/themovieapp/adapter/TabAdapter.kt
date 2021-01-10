@@ -1,8 +1,10 @@
 package com.azuka.themovieapp.adapter
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.feature.movie.MovieFragment
 import com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment
 
@@ -12,16 +14,14 @@ import com.azuka.themovieapp.presentation.feature.tvseries.TvSeriesFragment
  * Android Engineer
  */
 
-class TabAdapter(fm: FragmentManager) :
+class TabAdapter(context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount(): Int = 2
 
-    companion object {
-        private val TITLES = arrayOf(
-            "Movie",
-            "Tv Series"
-        )
-    }
+    private val titles = arrayOf(
+        context.getString(R.string.tab_movies),
+        context.getString(R.string.tab_tv_series)
+    )
 
     override fun getItem(position: Int): Fragment {
         return if (position == 1) {
@@ -32,6 +32,6 @@ class TabAdapter(fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return TITLES[position]
+        return titles[position]
     }
 }

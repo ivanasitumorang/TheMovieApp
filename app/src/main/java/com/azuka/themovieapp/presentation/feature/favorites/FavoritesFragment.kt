@@ -26,7 +26,7 @@ class FavoritesFragment : BaseFragment() {
     }
 
     private fun setupTab() {
-        val adapter = TabAdapter(childFragmentManager)
+        val adapter = TabAdapter(requireContext(), childFragmentManager)
         val pager = pagerFavorite
         pager.adapter = adapter
         tabLayoutFavorite.setupWithViewPager(pager)

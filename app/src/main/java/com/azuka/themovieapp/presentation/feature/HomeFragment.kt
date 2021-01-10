@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupTab() {
-        val adapter = TabAdapter(childFragmentManager)
+        val adapter = TabAdapter(requireContext(), childFragmentManager)
         pager.adapter = adapter
         tabLayout.setupWithViewPager(pager)
     }
