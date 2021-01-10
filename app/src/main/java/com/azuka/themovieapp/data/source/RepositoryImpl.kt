@@ -10,6 +10,7 @@ import com.azuka.themovieapp.data.source.local.LocalDataSource
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.utils.CoroutineContextProvider
@@ -68,18 +69,29 @@ class RepositoryImpl @Inject constructor(
         return tvSeriesDetail
     }
 
-    override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
+    override fun getFavoriteMovies(): LiveData<PagedList<FavoriteGeneral>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
             .setPageSize(4)
             .build()
 
-        val movieSource = localSource.getFavoriteMovies().map {
-            MovieDataMapper.mapEntityToDomain(it)
+        val favoriteSource = localSource.getFavoriteMovies().map {
+            with(it) {
+                FavoriteGeneral(
+                    id = id,
+                    title = title,
+                    overview = overview,
+                    voteAverage = voteAverage,
+                    voteCount = voteCount,
+                    releaseDate = releaseDate,
+                    originalLanguage = originalLanguage,
+                    posterPath = posterPath
+                )
+            }
         }
 
-        return LivePagedListBuilder(movieSource, config).build()
+        return LivePagedListBuilder(favoriteSource, config).build()
     }
 
     override fun getFavoriteTvShow(): LiveData<List<TvSeries>> {

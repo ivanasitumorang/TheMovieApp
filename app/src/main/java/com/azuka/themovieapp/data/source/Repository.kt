@@ -2,6 +2,7 @@ package com.azuka.themovieapp.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 
@@ -16,7 +17,7 @@ interface Repository {
     fun getTvSeries(): LiveData<List<TvSeries>>
     fun getMovieDetail(movieId: Long): LiveData<Movie>
     fun getTvSeriesDetail(tvSeriesId: Long): LiveData<TvSeries>
-    fun getFavoriteMovies(): LiveData<PagedList<Movie>>
+    fun getFavoriteMovies(): LiveData<PagedList<FavoriteGeneral>>
     fun getFavoriteTvShow(): LiveData<List<TvSeries>>
     fun insertFavoriteMovie(movie: Movie)
     fun insertFavoriteTvSeries(tvSeries: TvSeries)

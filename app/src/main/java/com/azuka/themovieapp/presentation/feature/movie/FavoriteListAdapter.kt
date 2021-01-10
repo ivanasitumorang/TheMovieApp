@@ -7,7 +7,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.azuka.themovieapp.R
-import com.azuka.themovieapp.presentation.entity.Movie
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 
@@ -17,24 +17,30 @@ import kotlinx.android.synthetic.main.item_movie.view.*
  * Android Engineer
  */
 
-class Adapter(
-    private val clickListener: (Movie) -> Unit
-) : PagedListAdapter<Movie, Adapter.ViewHolder>(DIFF_CALLBACK) {
+class FavoriteListAdapter(
+    private val clickListener: (FavoriteGeneral) -> Unit
+) : PagedListAdapter<FavoriteGeneral, FavoriteListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FavoriteGeneral>() {
+            override fun areItemsTheSame(
+                oldItem: FavoriteGeneral,
+                newItem: FavoriteGeneral
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            override fun areContentsTheSame(
+                oldItem: FavoriteGeneral,
+                newItem: FavoriteGeneral
+            ): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: Movie, clickListener: (Movie) -> Unit) {
+        fun bind(data: FavoriteGeneral, clickListener: (FavoriteGeneral) -> Unit) {
             itemView.apply {
                 Picasso.get().load(data.posterPath)
                     .into(ivMovie)

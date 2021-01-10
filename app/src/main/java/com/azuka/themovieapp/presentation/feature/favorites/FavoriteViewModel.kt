@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.azuka.themovieapp.data.source.Repository
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 
@@ -33,7 +34,7 @@ class FavoriteViewModel @ViewModelInject constructor(private val repository: Rep
         repository.removeFavoriteTvSeries(id)
     }
 
-    fun getMovieList(): LiveData<PagedList<Movie>> = repository.getFavoriteMovies()
+    fun getMovieList(): LiveData<PagedList<FavoriteGeneral>> = repository.getFavoriteMovies()
 
     fun getTvSeries(): LiveData<List<TvSeries>> = repository.getFavoriteTvShow()
 

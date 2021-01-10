@@ -39,7 +39,7 @@ class MovieFragment : BaseFragment() {
         if (isFavoriteScreen) {
             favoriteViewModel.getMovieList().observe(this, { movieList ->
                 movieList?.let {
-                    val adapter = Adapter { movie ->
+                    val adapter = FavoriteListAdapter { movie ->
                         navigateToDetail(movie.id)
                     }
 
