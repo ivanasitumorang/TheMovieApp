@@ -3,6 +3,8 @@ package com.azuka.themovieapp.data.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.azuka.themovieapp.data.BaseResponse
 import com.azuka.themovieapp.data.source.local.LocalDataSource
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
@@ -66,10 +68,18 @@ class RepositoryImpl @Inject constructor(
         return tvSeriesDetail
     }
 
-    override fun getFavoriteMovies(): LiveData<List<Movie>> {
-        return Transformations.map(localSource.getFavoriteMovies()) {
-            MovieDataMapper.mapEntitiesToDomains(it)
+    override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+
+        val movieSource = localSource.getFavoriteMovies().map {
+            MovieDataMapper.mapEntityToDomain(it)
         }
+
+        return LivePagedListBuilder(movieSource, config).build()
     }
 
     override fun getFavoriteTvShow(): LiveData<List<TvSeries>> {
@@ -99,6 +109,22 @@ class RepositoryImpl @Inject constructor(
     override fun removeFavoriteTvSeries(tvSeriesId: Long) {
         CoroutineScope(coroutineProvider.backgroundDispatcher()).launch {
             localSource.deleteFavoriteTvSeries(tvSeriesId)
+        }
+    }
+
+    override fun checkIfFavoriteMovie(movieId: Long): LiveData<Boolean> {
+        return Transformations.switchMap(localSource.checkIfFavoriteMovie(movieId)) {
+            val result = MutableLiveData<Boolean>()
+            result.value = it.isNotEmpty()
+            result
+        }
+    }
+
+    override fun checkIfFavoriteTvSeries(tvSeriesId: Long): LiveData<Boolean> {
+        return Transformations.switchMap(localSource.checkIfFavoriteTvSeries(tvSeriesId)) {
+            val result = MutableLiveData<Boolean>()
+            result.value = it.isNotEmpty()
+            result
         }
     }
 }

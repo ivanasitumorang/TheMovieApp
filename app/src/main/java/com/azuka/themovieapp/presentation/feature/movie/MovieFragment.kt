@@ -38,7 +38,16 @@ class MovieFragment : BaseFragment() {
     private fun setupUI() {
         if (isFavoriteScreen) {
             favoriteViewModel.getMovieList().observe(this, { movieList ->
-                populateMovieList(movieList)
+                movieList?.let {
+                    val adapter = Adapter { movie ->
+                        navigateToDetail(movie.id)
+                    }
+
+                    adapter.submitList(movieList)
+
+                    rvMovie.adapter = adapter
+                    loadingMovie.visibility = View.GONE
+                }
             })
         } else {
             movieViewModel.getMovieList().observe(this, { movieList ->

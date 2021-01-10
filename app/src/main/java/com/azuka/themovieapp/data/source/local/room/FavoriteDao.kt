@@ -1,6 +1,7 @@
 package com.azuka.themovieapp.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -18,7 +19,7 @@ import com.azuka.themovieapp.data.source.local.entity.TvSeriesEntity
 interface FavoriteDao {
 
     @Query("SELECT * FROM t_movie")
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM t_tv_series")
     fun getTvSeries(): LiveData<List<TvSeriesEntity>>
@@ -34,4 +35,10 @@ interface FavoriteDao {
 
     @Query("DELETE FROM t_tv_series WHERE id = :id")
     fun deleteTvSeries(id: Long)
+
+    @Query("SELECT * FROM t_movie WHERE id = :movieId")
+    fun checkIfFavoriteMovie(movieId: Long): LiveData<List<MovieEntity>>
+
+    @Query("SELECT * FROM t_tv_series WHERE id = :tvSeriesId")
+    fun checkIfFavoriteTvSeries(tvSeriesId: Long): LiveData<List<TvSeriesEntity>>
 }

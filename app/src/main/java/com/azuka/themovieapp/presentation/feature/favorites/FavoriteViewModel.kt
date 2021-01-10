@@ -2,9 +2,8 @@ package com.azuka.themovieapp.presentation.feature.favorites
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 import com.azuka.themovieapp.data.source.Repository
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
@@ -34,29 +33,12 @@ class FavoriteViewModel @ViewModelInject constructor(private val repository: Rep
         repository.removeFavoriteTvSeries(id)
     }
 
-    fun getMovieList(): LiveData<List<Movie>> = repository.getFavoriteMovies()
+    fun getMovieList(): LiveData<PagedList<Movie>> = repository.getFavoriteMovies()
 
     fun getTvSeries(): LiveData<List<TvSeries>> = repository.getFavoriteTvShow()
 
-    fun checkIfFavoriteMovie(id: Long): LiveData<Boolean> {
-        return Transformations.switchMap(repository.getFavoriteMovies()) { movieList ->
-            val isFavorite = MutableLiveData<Boolean>()
-            val isExist = movieList.firstOrNull {
-                it.id == id
-            }
-            isFavorite.value = isExist != null
-            isFavorite
-        }
-    }
+    fun checkIfFavoriteMovie(id: Long): LiveData<Boolean> = repository.checkIfFavoriteMovie(id)
 
-    fun checkIfFavoriteTvSeries(id: Long): LiveData<Boolean> {
-        return Transformations.switchMap(repository.getFavoriteTvShow()) { tvSeriesList ->
-            val isFavorite = MutableLiveData<Boolean>()
-            val isExist = tvSeriesList.firstOrNull {
-                it.id == id
-            }
-            isFavorite.value = isExist != null
-            isFavorite
-        }
-    }
+    fun checkIfFavoriteTvSeries(id: Long): LiveData<Boolean> =
+        repository.checkIfFavoriteTvSeries(id)
 }
