@@ -15,7 +15,5 @@ import com.azuka.themovieapp.presentation.entity.Movie
 class MovieViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
 
-//    val movieList: LiveData<List<Movie>> = repository.getMovies()
-
     fun getMovieList(): LiveData<List<Movie>> = repository.getMovies()
 }

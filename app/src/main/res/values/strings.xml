@@ -6,4 +6,9 @@
     <string name="detail_label_overview">Overview</string>
 
     <string name="item_votes">(%.1f of 10)</string>
+
+    <string name="tab_movies">Movie</string>
+    <string name="tab_tv_series">Tv Series</string>
+
+    <string name="favorite_bar_title">Favorite Movies</string>
 </resources>

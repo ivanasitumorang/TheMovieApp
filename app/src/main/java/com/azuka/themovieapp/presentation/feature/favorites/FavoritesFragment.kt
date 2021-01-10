@@ -1,19 +1,21 @@
-package com.azuka.themovieapp.presentation.feature
+package com.azuka.themovieapp.presentation.feature.favorites
 
 import android.os.Bundle
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.adapter.TabAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
 
 /**
- * Created by ivanaazuka on 24/11/20.
+ * Created by ivanaazuka on 08/01/21.
  * Android Engineer
  */
 
-class HomeFragment : BaseFragment() {
-    override val viewLayout: Int = R.layout.fragment_home
+@AndroidEntryPoint
+class FavoritesFragment : BaseFragment() {
+    override val viewLayout: Int = R.layout.fragment_favorites
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
         setupUI()
@@ -25,8 +27,8 @@ class HomeFragment : BaseFragment() {
 
     private fun setupTab() {
         val adapter = TabAdapter(requireContext(), childFragmentManager)
+        val pager = pagerFavorite
         pager.adapter = adapter
-        tabLayout.setupWithViewPager(pager)
+        tabLayoutFavorite.setupWithViewPager(pager)
     }
-
 }

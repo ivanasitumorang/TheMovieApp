@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.tvseries
+package com.azuka.themovieapp.presentation.feature.home
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -25,12 +25,12 @@ import org.junit.runner.RunWith
  */
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class TvSeriesFragmentTest {
+class MovieFragmentTest {
 
-    private val selectedTvSeriesIndex = 0
+    private val selectedMovieIndex = 2
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val scenario = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun setUp() {
@@ -38,34 +38,43 @@ class TvSeriesFragmentTest {
     }
 
     @Test
-    fun test_loadTvSeriesList() {
+    fun test_loadMovieList() {
         val itemCountToCheck = 10
-        onView(withText("Tv Series")).perform(click())
-
-        onView(withId(R.id.rvTvSeries))
-            .check(matches(isDisplayed()))
-
-        onView(withId(R.id.rvTvSeries))
+        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvMovie))
             .perform(
                 RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(itemCountToCheck)
             )
     }
 
     @Test
-    fun test_loadTvSeriesDetail() {
-        onView(withText("Tv Series")).perform(click())
-
-        onView(withId(R.id.rvTvSeries))
+    fun test_loadMovieDetail() {
+        onView(withId(R.id.rvMovie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    selectedTvSeriesIndex,
+                    selectedMovieIndex,
+                    click()
+                )
+            )
+        onView(withId(R.id.tvDetailTitle))
+            .check(matches(isDisplayed()))
+            .check(matches(not(withText(""))))
+    }
+
+    @Test
+    fun test_tapButtonFavorite() {
+        // navigate to movie detail
+        val selectedItem = 0
+        onView(withId(R.id.rvMovie))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    selectedItem,
                     click()
                 )
             )
 
-        onView(withId(R.id.tvDetailTitle))
-            .check(matches(isDisplayed()))
-            .check(matches(not(withText(""))))
+        // adding/removing selected movie to/from favorite
+        onView(withId(R.id.btnFavorite)).perform(click())
     }
 
     @After

@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.movie
+package com.azuka.themovieapp.presentation.feature.favorite
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -12,22 +12,21 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.MainActivity
 import com.azuka.themovieapp.utils.EspressoIdlingResource
-import org.hamcrest.Matchers.not
+import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 /**
- * Created by ivanaazuka on 29/11/20.
+ * Created by ivanaazuka on 10/01/21.
  * Android Engineer
  */
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class MovieFragmentTest {
-
-    private val selectedMovieIndex = 2
 
     @get:Rule
     val scenario = ActivityScenarioRule(MainActivity::class.java)
@@ -37,32 +36,54 @@ class MovieFragmentTest {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
     }
 
-    @Test
-    fun test_loadMovieList() {
-        val itemCountToCheck = 10
-        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rvMovie))
-            .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(itemCountToCheck)
-            )
-    }
-
-    @Test
-    fun test_loadMovieDetail() {
-        onView(withId(R.id.rvMovie))
-            .perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    selectedMovieIndex,
-                    click()
-                )
-            )
-        onView(withId(R.id.tvDetailTitle))
-            .check(matches(isDisplayed()))
-            .check(matches(not(withText(""))))
-    }
-
     @After
     fun tearDown() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
+
+    @Test
+    fun test_loadFavoriteMovieList() {
+
+        // make sure data favorite is available
+        for (index in 0..10) {
+            tabFavoriteButton(index)
+        }
+
+        tabFavoriteButton((3..5).random())
+
+        // go to favorite page
+        onView(withId(R.id.favoritesFragment)).perform(click())
+
+        // check the favorite movie list is displayed & click first item
+        onView(withId(R.id.rvMovie))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    0,
+                    click()
+                )
+            )
+
+        // check the title of the detail movie
+        onView(withId(R.id.tvDetailTitle))
+            .check(matches(isDisplayed()))
+            .check(matches(Matchers.not(withText(""))))
+    }
+
+    private fun tabFavoriteButton(index: Int) {
+        // open detail movie
+        onView(withId(R.id.rvMovie))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    index,
+                    click()
+                )
+            )
+
+        // click favorite button
+        onView(withId(R.id.btnFavorite)).perform(click())
+
+        // back to movie list
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
+
     }
 }
