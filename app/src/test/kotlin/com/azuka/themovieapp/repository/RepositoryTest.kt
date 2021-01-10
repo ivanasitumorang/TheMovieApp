@@ -2,9 +2,11 @@ package com.azuka.themovieapp.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.azuka.themovieapp.data.BaseResponse
+import com.azuka.themovieapp.data.source.local.LocalDataSource
 import com.azuka.themovieapp.data.source.remote.RemoteDataSource
 import com.azuka.themovieapp.data.source.remote.response.MovieResponse
 import com.azuka.themovieapp.data.source.remote.response.TvSeriesResponse
+import com.azuka.themovieapp.utils.CoroutineContextProvider
 import com.azuka.themovieapp.utils.LiveDataTestUtil
 import com.azuka.themovieapp.utils.TestUtils
 import io.mockk.every
@@ -26,8 +28,12 @@ class RepositoryTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val remoteSource: RemoteDataSource = mockk()
+    private val localSource: LocalDataSource = mockk()
+    private val coroutineProvider: CoroutineContextProvider = mockk()
 
-    private val repository = FakeRepository(remoteSource)
+    private val repository = FakeRepository(
+        remoteSource, localSource, coroutineProvider
+    )
 
 
     @Test
