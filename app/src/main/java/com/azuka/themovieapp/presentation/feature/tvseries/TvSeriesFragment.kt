@@ -9,9 +9,9 @@ import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
+import com.azuka.themovieapp.presentation.feature.favorites.FavoriteListAdapter
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
 import com.azuka.themovieapp.presentation.feature.favorites.FavoritesFragmentDirections
-import com.azuka.themovieapp.presentation.feature.movie.FavoriteListAdapter
 import com.azuka.themovieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tv_series.*

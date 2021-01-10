@@ -1,4 +1,4 @@
-package com.azuka.themovieapp.presentation.feature.movie
+package com.azuka.themovieapp.presentation.feature.favorites
 
 import android.view.LayoutInflater
 import android.view.View

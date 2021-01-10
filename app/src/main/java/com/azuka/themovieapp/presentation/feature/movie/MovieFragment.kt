@@ -9,6 +9,7 @@ import com.azuka.themovieapp.R
 import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
+import com.azuka.themovieapp.presentation.feature.favorites.FavoriteListAdapter
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
 import com.azuka.themovieapp.presentation.feature.favorites.FavoritesFragmentDirections
 import com.azuka.themovieapp.utils.Constants
