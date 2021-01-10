@@ -17,10 +17,16 @@
         android:name="com.azuka.themovieapp.presentation.feature.detail.DetailFragment">
         <argument
             android:name="movieId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="-1L" />
         <argument
             android:name="dataType"
             app:argType="string" />
+        <argument
+            android:name="favoriteData"
+            app:argType="com.azuka.themovieapp.presentation.entity.FavoriteGeneral"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/movieFragment"

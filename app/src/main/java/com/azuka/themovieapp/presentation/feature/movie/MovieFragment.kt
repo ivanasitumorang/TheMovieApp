@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.feature.HomeFragmentDirections
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
@@ -37,13 +38,13 @@ class MovieFragment : BaseFragment() {
 
     private fun setupUI() {
         if (isFavoriteScreen) {
-            favoriteViewModel.getMovieList().observe(this, { movieList ->
-                movieList?.let {
-                    val adapter = FavoriteListAdapter { movie ->
-                        navigateToDetail(movie.id)
+            favoriteViewModel.getMovieList().observe(this, { favoriteList ->
+                favoriteList?.let {
+                    val adapter = FavoriteListAdapter { favoriteData ->
+                        navigateToDetail(favoriteData)
                     }
 
-                    adapter.submitList(movieList)
+                    adapter.submitList(favoriteList)
 
                     rvMovie.adapter = adapter
                     loadingMovie.visibility = View.GONE
@@ -60,21 +61,22 @@ class MovieFragment : BaseFragment() {
     private fun populateMovieList(movieList: List<Movie>?) {
         movieList?.let {
             val adapter = MovieAdapter(movieList) { movie ->
-                navigateToDetail(movie.id)
+                navigateToDetail(movie)
             }
             loadingMovie.visibility = View.GONE
             rvMovie.adapter = adapter
         }
     }
 
-    private fun navigateToDetail(tvSeriesId: Long) {
+    private fun navigateToDetail(data: Any) {
         val action = if (isFavoriteScreen) {
             FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(
-                tvSeriesId, Constants.Movie.TAG_MOVIE_TYPE
+                favoriteData = data as FavoriteGeneral,
+                dataType = Constants.Movie.TAG_MOVIE_TYPE
             )
         } else {
             HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                tvSeriesId, Constants.Movie.TAG_MOVIE_TYPE
+                (data as Movie).id, Constants.Movie.TAG_MOVIE_TYPE
             )
         }
         navController.navigate(action)

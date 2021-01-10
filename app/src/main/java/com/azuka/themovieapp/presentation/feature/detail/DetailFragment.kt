@@ -5,10 +5,12 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.azuka.themovieapp.BaseFragment
 import com.azuka.themovieapp.R
+import com.azuka.themovieapp.presentation.entity.FavoriteGeneral
 import com.azuka.themovieapp.presentation.entity.Movie
 import com.azuka.themovieapp.presentation.entity.TvSeries
 import com.azuka.themovieapp.presentation.feature.favorites.FavoriteViewModel
@@ -30,6 +32,8 @@ class DetailFragment : BaseFragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels()
 
+    private val favoriteArgs: DetailFragmentArgs by navArgs()
+
     private var dataType: String? = null
     private var movieId: Long? = null
 
@@ -49,10 +53,9 @@ class DetailFragment : BaseFragment() {
     }
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
-        arguments?.let { args ->
-            movieId = DetailFragmentArgs.fromBundle(args).movieId
-            dataType = DetailFragmentArgs.fromBundle(args).dataType
-        }
+        val favoriteData = favoriteArgs.favoriteData
+        dataType = favoriteArgs.dataType
+        movieId = favoriteData?.id ?: favoriteArgs.movieId
 
         setupUI()
         setupObserver()
@@ -129,12 +132,58 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun setupUI() {
-        movieId?.let {
+        val favoriteData = favoriteArgs.favoriteData
+        if (favoriteData != null) {
+            setupContentFavorite(favoriteData)
+            hideLoading()
             if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
-                detailViewModel.setSelectedMovie(it)
+                movie = with(favoriteData) {
+                    Movie(
+                        id = id,
+                        title = title,
+                        overview = overview,
+                        voteAverage = voteAverage,
+                        voteCount = voteCount,
+                        releaseDate = releaseDate,
+                        originalLanguage = originalLanguage,
+                        posterPath = posterPath
+                    )
+                }
             } else {
-                detailViewModel.setSelectedTvSeriesId(it)
+                tvSeries = with(favoriteData) {
+                    TvSeries(
+                        id = id,
+                        name = title,
+                        overview = overview,
+                        voteAverage = voteAverage,
+                        voteCount = voteCount,
+                        firstAirDate = releaseDate,
+                        originalLanguage = originalLanguage,
+                        posterPath = posterPath
+                    )
+                }
             }
+        } else {
+            movieId?.let {
+                if (dataType == Constants.Movie.TAG_MOVIE_TYPE) {
+                    detailViewModel.setSelectedMovie(it)
+                } else {
+                    detailViewModel.setSelectedTvSeriesId(it)
+                }
+            }
+        }
+    }
+
+    private fun setupContentFavorite(favoriteGeneral: FavoriteGeneral) {
+        with(favoriteGeneral) {
+            Picasso.get().load(posterPath).into(ivDetailImage)
+            tvDetailTitle.text = title
+            rbDetail.rating = (voteAverage / 2).toFloat()
+            tvDetailRating.text = getString(R.string.item_votes, voteAverage)
+            tvDetailReleaseDate.text = releaseDate
+            tvDetailLanguage.text = originalLanguage
+            tvDetailVoteCount.text = voteCount.toString()
+            tvDetailOverview.text = overview
         }
     }
 
